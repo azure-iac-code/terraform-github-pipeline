@@ -1,0 +1,64 @@
+name: Teste ansible automation
+on:
+  push:
+    branches:
+      - main
+
+env:
+  version: 1.0.23
+
+jobs:
+  Terraform:
+    runs-on:
+     group: runners_group_default
+    outputs:
+      ANSIBLE_HOSTS: ${{ steps.tf.outputs.ANSIBLE_HOSTS }}
+    env:
+      ARM_USE_MSI: true
+      ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }} 
+      ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+    steps:
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.9.2"
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Terraform Init
+        run: terraform init -var-file variables-dev.tfvars
+        working-directory: terraform
+
+      - name: Terraform validate
+        run: terraform validate 
+        working-directory: terraform
+
+      - name: Terraform plan
+        run: terraform plan -var-file variables-dev.tfvars -out tf.plan
+        working-directory: terraform
+
+      # - name: Terraform show
+      #   run: terraform show -json tf.plan | jq > tf.json 
+      #   working-directory: terraform
+
+      # - name: Set up Python 3.8
+      #   uses: actions/setup-python@v4
+      #   with:
+      #     python-version: 3.8
+
+      # - name: Test with Checkov
+      #   id: checkov
+      #   uses: bridgecrewio/checkov-action@39af4356d060f18cc43712934dae91a79bb1590e
+      #   with:
+      #     file: tf.json
+
+      - name: Terraform Apply
+        run: terraform apply -var-file variables-dev.tfvars -auto-approve
+        working-directory: terraform
+
+      # - name: Terraform Destroy
+      #   run: terraform destroy -var-file variables-dev.tfvars -auto-approve
+      #   working-directory: terraform
+
+ 
