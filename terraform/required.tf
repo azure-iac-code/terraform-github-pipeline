@@ -5,10 +5,10 @@ provider "azurerm" {
 
 terraform {
   backend "azurerm" {
-    resource_group_name  = "rg_gh"
-    storage_account_name = "githubactionmalaquias"
-    container_name       = "terraform"
-    key                  = "terraform.tfstate"
+    resource_group_name  = "rg-runner"
+    storage_account_name = "tfstatemarcusbf"
+    container_name       = "tfstate"
+    key                  = "key-github"
   }
 }
  
