@@ -9,8 +9,7 @@ env:
 
 jobs:
   Terraform:
-    runs-on:
-     group: runners_group_default
+    runs-on: self-hosted
     outputs:
       ANSIBLE_HOSTS: ${{ steps.tf.outputs.ANSIBLE_HOSTS }}
     env:
