@@ -60,9 +60,9 @@ module "key_vault" {
   purge_protection_enabled              = var.purge_protection_enabled
   public_network_access_enabled         = var.public_network_access_enabled
 
-  ##################################################################################
+  #################################################################################
   #                                  PRIVATE ENDPOINT
-  ##################################################################################
+  #################################################################################
   private_service_connection_name = var.private_service_connection_name
   azurerm_private_dns_zone_name   = var.azurerm_private_dns_zone_name
   azurerm_private_endpoint_name   = var.azurerm_private_endpoint_name #"pvtkvazu${var.ambiente}bra${var.azurerm_key_vault_name}"
