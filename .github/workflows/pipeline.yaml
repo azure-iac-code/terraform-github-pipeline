@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - main
-C:\devops\github-avanade\azu-pipeline-template\.github\workflow\pipeline.yaml
 env:
   version: 1.0.23
 
