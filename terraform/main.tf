@@ -60,7 +60,7 @@ data "azurerm_subnet" "subnet_jump" {
 
 
 module "key_vault" {
-  source                                = "git://github.com/azure-iac-code/trf-azu-keyvault.git?ref=main"
+  source                                = "git://github.com/azure-iac-code/trf-azu-keyvault.git"
   azurerm_key_vault_name                = var.azurerm_key_vault_name
   ambiente                              = var.ambiente
   subnet_resource_group_name            = var.subnet_resource_group_name
