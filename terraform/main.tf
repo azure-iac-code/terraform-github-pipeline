@@ -1,7 +1,3 @@
-data "azurerm_subscription" "primary" {
-  provider = azurerm.azure_rm
-
-
   #-------------------------------------------
   # Data do recurso vnet e subnet jump
   #-------------------------------------------
@@ -119,4 +115,3 @@ data "azurerm_subscription" "primary" {
     #  provider = azurerm
 
   }
-}
