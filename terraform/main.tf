@@ -13,7 +13,6 @@
     name                = var.azurerm_virtual_network_name
     resource_group_name = var.azurerm_resource_group_name
     # provider            = azurerm.ditigerenciamento
-
   }
 
   data "azurerm_subnet" "jump_subnet" {
