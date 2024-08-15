@@ -1,4 +1,4 @@
-name: Teste ansible automation
+name: Terraform Automation Pipeline
 on:
   push:
     branches:
