@@ -1,4 +1,11 @@
   #-------------------------------------------
+  # Data do recurso group
+  #-------------------------------------------
+  data "azurerm_resource_group" "rg_keyvault" {
+    name = "rg-keyvault"
+  }
+
+  #-------------------------------------------
   # Data do recurso vnet e subnet jump
   #-------------------------------------------
 
