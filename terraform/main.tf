@@ -9,8 +9,8 @@
 
   }
 
-  data "azurerm_subnet" "svc_endpoint_subnet" {
-    name                 = var.jump_subnet_name
+  data "azurerm_subnet" "jump_subnet" {
+    name                 = var.azurerm_subnet_jump_name
     virtual_network_name = data.azurerm_virtual_network.this.name
     resource_group_name  = var.azurerm_resource_group_name
     #  provider             = azurerm.ditigerenciamento
@@ -18,7 +18,7 @@
   }
 
   data "azurerm_subnet" "keyvault_subnet" {
-    name                 = var.keyvault_subnet_name
+    name                 = var.azurerm_subnet_keyvault_name
     virtual_network_name = var.azurerm_virtual_network_name
     resource_group_name  = var.subnet_resource_group_name
   }

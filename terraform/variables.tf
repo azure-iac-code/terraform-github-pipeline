@@ -2,7 +2,7 @@
 # Variáveis do componente
 #################################
 
-variable "keyvault_subnet_name" {
+variable "azurerm_subnet_keyvault_name" {
   description = "Informar o nome da subnet para busca do ID"
   type        = string
   default     = "snetdvditiautodvptendpoint001"
@@ -109,10 +109,10 @@ variable "azurerm_virtual_network" {
   default     = "GERENCIAMENTO-VNET"
 }
 
-variable "jump_subnet_name" {
+variable "azurerm_subnet_jump_name" {
   description = "Insira o nome da subnet de gerenciamento (onde se encontra o jump)"
   type        = string
-  default     = "jumper-subnet"
+  default     = "jump-subnet"
 }
 
 variable "azurerm_resource_group_name" {
