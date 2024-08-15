@@ -4,7 +4,7 @@
 # data "azurerm_resource_group" "rg_keyvault" {
 #   name = "rg-keyvault"
 # }
-resource "azurerm_resource_group_name" "rg_keyvault" {
+resource "resource_group_name" "rg_keyvault" {
   name     = "rgdvditiautovnetacoe"
   location = "eastus2"
 }
