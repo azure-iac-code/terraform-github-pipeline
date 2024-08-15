@@ -22,7 +22,7 @@ azurerm_resource_group_location = "eastus"
 ###################################################################################
 #                                     VNET | SUBNET
 ###################################################################################
-azurerm_virtual_network_name = ""
+azurerm_virtual_network_name          = ""
 azurerm_virtual_network_location      = "eastus"
 azurerm_virtual_network_address_space = ["172.30.0.0/22"]
 azurerm_subnet_address_prefixes       = ["172.30.1.0/24"]

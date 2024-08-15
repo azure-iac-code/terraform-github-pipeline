@@ -5,7 +5,7 @@
 variable "keyvault_subnet_name" {
   description = "Informar o nome da subnet para busca do ID"
   type        = string
-  default = "snetdvditiautodvptendpoint001"
+  default     = "snetdvditiautodvptendpoint001"
 }
 
 variable "azurerm_virtual_network_name" {
@@ -21,7 +21,7 @@ variable "subnet_resource_group_name" {
 variable "azurerm_key_vault_name" {
   description = "Nome que será usado para o Key Vault"
   type        = string
-  default = "kvazudvbraditiauto001"
+  default     = "kvazudvbraditiauto001"
 }
 
 
@@ -148,7 +148,7 @@ variable "private_service_connection_is_manual_connection" {
 variable "ambiente" {
   description = "Usado para compor o nome do recurso."
   type        = string
-  default = "dv"
+  default     = "dv"
 }
 
 #---------------------------------------------------------------
