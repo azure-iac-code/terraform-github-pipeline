@@ -3,21 +3,21 @@
 #-------------------------------------------
 
 data "azurerm_virtual_network" "this" {
-  name                = var.vnet_name
-  resource_group_name = var.vnet_resource_group_name
-  provider            = azurerm.ditigerenciamento
+  name                = var.azurerm_virtual_network_name
+  resource_group_name = var.azurerm_resource_group_name
+ # provider            = azurerm.ditigerenciamento
 }
 
-data "azurerm_subnet" "jump_subnet" {
+data "azurerm_subnet" "svc_endpoint_subnet" {
   name                 = var.jump_subnet_name
   virtual_network_name = data.azurerm_virtual_network.this.name
-  resource_group_name  = var.vnet_resource_group_name
+  resource_group_name  = var.azurerm_resource_group_name
   provider             = azurerm.ditigerenciamento
 }
 
 data "azurerm_subnet" "keyvault_subnet" {
   name                 = var.keyvault_subnet_name
-  virtual_network_name = var.subnet_virtual_network_name
+  virtual_network_name = var.azurerm_virtual_network_name
   resource_group_name  = var.subnet_resource_group_name
 }
 
@@ -33,19 +33,12 @@ data "azurerm_private_dns_zone" "this" {
   provider            = azurerm.ditiidentity
 }
 
-# data "azurerm_subnet" "bamboo_subnet" {
-#   name                 = var.bamboo_subnet_name
-#   virtual_network_name = var.bamboo_subnet_virtual_network_name
-#   resource_group_name  = var.bamboo_subnet_resource_group_name
-#   provider             = azurerm.ditigerenciamento
-# }
-
 #----------------------------------------
 # Recurso keyvault
 #----------------------------------------
 
 resource "azurerm_key_vault" "this" {
-  name                            = var.azurerm_key_vault_name #"kvazu${var.ambiente}bra${var.azurerm_key_vault_name}"
+  name                            = "kvazu${var.ambiente}bra${var.azurerm_key_vault_name}" #var.azurerm_key_vault_name
   location                        = var.azurerm_key_vault_location
   resource_group_name             = var.azurerm_key_vault_resource_group_name
   sku_name                        = var.sku_name
@@ -103,9 +96,8 @@ data "azurerm_eventhub_namespace_authorization_rule" "this" {
   provider            = azurerm.ditigerenciamento
 }
 
-################################################################
 resource "azurerm_monitor_diagnostic_setting" "this" {
-  name                           = var.azurerm_monitor_diagnostic_setting_name #"${var.azurerm_key_vault_name}_diagnostic"
+  name                           = "${var.azurerm_key_vault_name}_diagnostic" #var.azurerm_monitor_diagnostic_setting_name
   target_resource_id             = azurerm_key_vault.this.id
   eventhub_name                  = var.eventhub_name
   eventhub_authorization_rule_id = data.azurerm_eventhub_namespace_authorization_rule.this.id
@@ -114,5 +106,5 @@ resource "azurerm_monitor_diagnostic_setting" "this" {
     category_group = "audit"
   }
 
-  provider = azurerm
+#  provider = azurerm
 }

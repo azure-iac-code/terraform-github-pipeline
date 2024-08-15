@@ -8,7 +8,7 @@ variable "keyvault_subnet_name" {
   default = "snetdvditiautodvptendpoint001"
 }
 
-variable "subnet_virtual_network_name" {
+variable "azurerm_virtual_network_name" {
   description = "Informar o nome da vnet para busca do ID da subnet"
   type        = string
 }
@@ -25,11 +25,11 @@ variable "azurerm_key_vault_name" {
 }
 
 
-variable "azurerm_monitor_diagnostic_setting_name" {
-  description = "Nome que será usado para o Key Vault"
-  type        = string
-  default = "azmonitordvkv001"
-}
+# variable "azurerm_monitor_diagnostic_setting_name" {
+#   description = "Nome que será usado para o Key Vault"
+#   type        = string
+#   default = "azmonitordvkv001"
+# }
 
 
 variable "azurerm_key_vault_resource_group_name" {
@@ -100,10 +100,10 @@ variable "network_acls_ip_rules" {
 variable "azurerm_key_vault_location" {
   description = "Localização e região para o componnte"
   type        = string
-  default     = "brazilsouth"
+  default     = "eastus"
 }
 
-variable "vnet_name" {
+variable "azurerm_virtual_network" {
   description = "Insira o nome da VNET de gerenciamento (onde se encontra o jump)"
   type        = string
   default     = "GERENCIAMENTO-VNET"
@@ -115,7 +115,7 @@ variable "jump_subnet_name" {
   default     = "jumper-subnet"
 }
 
-variable "vnet_resource_group_name" {
+variable "azurerm_resource_group_name" {
   description = "Insira o nome do grupo de recurso da VNET de gerenciamento"
   type        = string
   default     = "GERENCIAMENTO-VNET-RG"
@@ -150,24 +150,6 @@ variable "ambiente" {
   type        = string
   default = "dv"
 }
-
-# variable "bamboo_subnet_name" {
-#   description = "Nome da subnet do bamboo"
-#   type        = string
-#   default     = "snetprtools002"
-# }
-
-# variable "bamboo_subnet_virtual_network_name" {
-#   description = "Nome da rede virtual do bamboo"
-#   type        = string
-#   default     = "vnetprgerenciamentobrazilsouth001"
-# }
-
-# variable "bamboo_subnet_resource_group_name" {
-#   description = "Nome do grupo de recurso do bamboo"
-#   type        = string
-#   default     = "rgprgerenciamentovnet"
-# }
 
 #---------------------------------------------------------------
 # Dados Log Analitics

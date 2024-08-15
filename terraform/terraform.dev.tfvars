@@ -16,13 +16,14 @@ dominio       = "ditiauto"
 ###################################################################################
 #                                  RESOURCE_GROUP
 ###################################################################################
-azurerm_resource_group_location = "brazilsouth"
+azurerm_resource_group_location = "eastus"
 
 
 ###################################################################################
 #                                     VNET | SUBNET
 ###################################################################################
-azurerm_virtual_network_location      = "brazilsouth"
+azurerm_virtual_network_name = ""
+azurerm_virtual_network_location      = "eastus"
 azurerm_virtual_network_address_space = ["172.30.0.0/22"]
 azurerm_subnet_address_prefixes       = ["172.30.1.0/24"]
 keyvault_subnet_name                  = "snetdvditiautodvptendpoint001"
@@ -43,7 +44,6 @@ purge_protection_enabled                                          = "true"
 public_network_access_enabled                                     = "true"
 azurerm_key_vault_resource_group_name                             = "rgkvdevbradesco001"
 subnet_virtual_network_name                                       = "vnetdvditiautoacoebrazilsouth"
-azurerm_key_vault_name                                            = "kvazudvbraditiauto004"
 azurerm_eventhub_namespace_authorization_rule_name                = "RootManageSharedAccessKey"
 azurerm_eventhub_namespace_authorization_rule_resource_group_name = "rg-siem-qradar"
 namespace_name                                                    = "eventhubmgmtsiemqradar"
