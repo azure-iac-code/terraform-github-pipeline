@@ -103,6 +103,11 @@ variable "azurerm_key_vault_location" {
   default     = "eastus"
 }
 
+variable "azurerm_resource_group_location" {
+  description = "Região do resource group"
+  type        = string
+}
+
 variable "azurerm_virtual_network" {
   description = "Insira o nome da VNET de gerenciamento (onde se encontra o jump)"
   type        = string
