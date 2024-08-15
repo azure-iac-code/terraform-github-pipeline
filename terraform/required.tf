@@ -1,28 +1,38 @@
+
 terraform {
-  required_version = ">= 1.0.0"
+
   required_providers {
+
     azurerm = {
+
       source = "hashicorp/azurerm"
-      version = ">= 2.0" 
+
+      version = ">= 2.0.0"
+
     }
-    random = {
-      source = "hashicorp/random"
-      version = ">= 3.0"
-    }
+
   }
+
+  backend "azurerm" {
+
+    resource_group_name = "rg-runner"
+
+    storage_account_name = "terraformdvbra"
+
+    container_name = "tfstate"
+
+    key = "key-github"
+
+  }
+
 }
 
 provider "azurerm" {
+
   features {}
+
   use_msi = true
+
 }
 
-terraform {
-  backend "azurerm" {
-    resource_group_name  = "rg-runner"
-    storage_account_name = "terraformdvbra"
-    container_name       = "tfstate"
-    key                  = "key-github"
-  }
-}
  
