@@ -1,4 +1,4 @@
-name: Terraform Automation Pipeline
+name: Terraform-Automation-Pipeline
 on:
   push:
     branches:
