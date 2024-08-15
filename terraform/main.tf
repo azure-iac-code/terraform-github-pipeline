@@ -12,7 +12,7 @@ data "azurerm_subnet" "svc_endpoint_subnet" {
   name                 = var.jump_subnet_name
   virtual_network_name = data.azurerm_virtual_network.this.name
   resource_group_name  = var.azurerm_resource_group_name
-  provider             = azurerm.ditigerenciamento
+#  provider             = azurerm.ditigerenciamento
 }
 
 data "azurerm_subnet" "keyvault_subnet" {
@@ -30,7 +30,7 @@ data "azurerm_client_config" "this" {}
 data "azurerm_private_dns_zone" "this" {
   name                = var.azurerm_private_dns_zone_name
   resource_group_name = var.azurerm_private_dns_zone_resource_group_name
-  provider            = azurerm.ditiidentity
+#  provider            = azurerm.ditiidentity
 }
 
 #----------------------------------------
@@ -50,7 +50,7 @@ resource "azurerm_key_vault" "this" {
   soft_delete_retention_days      = var.soft_delete_retention_days
   purge_protection_enabled        = var.purge_protection_enabled
   public_network_access_enabled   = var.public_network_access_enabled
-  provider                        = azurerm
+#  provider                        = azurerm
 
   network_acls {
     bypass                     = var.network_acls_bypass
@@ -70,7 +70,7 @@ resource "azurerm_private_endpoint" "this" {
   resource_group_name = var.azurerm_key_vault_resource_group_name
   location            = var.azurerm_key_vault_location
   subnet_id           = data.azurerm_subnet.keyvault_subnet.id
-  provider            = azurerm
+#  provider            = azurerm
 
   private_service_connection {
     name                           = "pvtcn${var.ambiente}bra${var.azurerm_key_vault_name}" #var.private_service_connection_name 
@@ -93,7 +93,7 @@ data "azurerm_eventhub_namespace_authorization_rule" "this" {
   name                = var.azurerm_eventhub_namespace_authorization_rule_name
   resource_group_name = var.azurerm_eventhub_namespace_authorization_rule_resource_group_name
   namespace_name      = var.namespace_name
-  provider            = azurerm.ditigerenciamento
+#  provider            = azurerm.ditigerenciamento
 }
 
 resource "azurerm_monitor_diagnostic_setting" "this" {
