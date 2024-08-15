@@ -33,7 +33,7 @@ jobs:
         working-directory: terraform
 
       - name: Terraform plan
-        run: terraform plan #-var-file variables-dev.tfvars -out tf.plan
+        run: terraform plan -out=tf.plan
         working-directory: terraform
 
       # - name: Terraform show
@@ -52,7 +52,7 @@ jobs:
       #     file: tf.json
 
       - name: Terraform Apply
-        run: terraform apply #-var-file variables-dev.tfvars -auto-approve
+        run: terraform apply -auto-approve tfplan
         working-directory: terraform
 
       # - name: Terraform Destroy
