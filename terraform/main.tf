@@ -5,8 +5,8 @@
 #   name = "rg-keyvault"
 # }
 resource "azurerm_resource_group_name" "rg_keyvault" {
-  name     = var.azurerm_resource_group_name
-  location = var.azurerm_resource_group_location
+  name     = "rgdvditiautovnetacoe"
+  location = "eastus2"
 }
 #-------------------------------------------
 #Data do recurso vnet e subnet jump
