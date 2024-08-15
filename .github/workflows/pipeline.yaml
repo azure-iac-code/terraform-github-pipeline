@@ -33,7 +33,7 @@ jobs:
         working-directory: terraform
 
       - name: Terraform plan
-        run: terraform plan -out=tf.plan
+        run: terraform plan -out=tf.plan -lock=false
         working-directory: terraform
 
       # - name: Terraform show
