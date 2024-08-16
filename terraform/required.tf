@@ -1,11 +1,6 @@
-provider "azurerm" {
-  features {}
-  use_msi = true
-}
-
-# resource "azurerm_resource_group" "rg" {
-#   name     = "myTFResourceGroup"
-#   location = "eastus"
+# provider "azurerm" {
+#   features {}
+#   use_msi = true
 # }
 
 terraform {
@@ -16,9 +11,3 @@ terraform {
     key                  = "key-github"
   }
 }
-
-
-# resource "azurerm_resource_group" "rg" {
-# name = "myTFResourceGroup"
-# location = "eastus"
-# }
