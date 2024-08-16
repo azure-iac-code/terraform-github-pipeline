@@ -10,6 +10,7 @@ env:
 jobs:
   Terraform:
     runs-on: self-hosted
+  working-directory: terraform
     # outputs:
     #   ANSIBLE_HOSTS: ${{ steps.tf.outputs.ANSIBLE_HOSTS }}
     env:
@@ -20,7 +21,7 @@ jobs:
     steps:
       - uses: hashicorp/setup-terraform@v3
         with:
-          terraform_version: "1.9.2"
+          terraform_version: "1.9.4"
 
       - name: Checkout
         uses: actions/checkout@v4
