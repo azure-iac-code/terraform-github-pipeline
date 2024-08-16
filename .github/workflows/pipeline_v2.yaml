@@ -15,7 +15,7 @@ on:
       
 jobs: 
   analysis:
-    if: github.event_name == 'pull_request'
+    if: github.event_name == 'push'
     defaults:
       run:
         working-directory: terraform
