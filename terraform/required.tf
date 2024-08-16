@@ -6,7 +6,7 @@ provider "azurerm" {
 terraform {
   backend "azurerm" {
     resource_group_name  = "rg-runner"
-    storage_account_name = "tfstatemarcusbf"
+    storage_account_name = "terraformdvbra"
     container_name       = "tfstate"
     key                  = "key-github"
   }
