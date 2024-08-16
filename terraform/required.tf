@@ -16,14 +16,6 @@
 
 
 
-# terraform {
-#   backend "azurerm" {
-#     resource_group_name  = "rg-runner"
-#     storage_account_name = "terraformdvbra"
-#     container_name       = "tfstate"
-#     key                  = "key-github"
-#   }
-# }
 
 terraform {
   required_providers {
@@ -34,6 +26,11 @@ terraform {
   }
 }
 
-provider "azurerm" {
-  features {}
+terraform {
+  backend "azurerm" {
+    resource_group_name  = "rg-runner"
+    storage_account_name = "terraformdvbra"
+    container_name       = "tfstate"
+    key                  = "key-github"
+  }
 }
