@@ -46,9 +46,7 @@ jobs:
         ARM_CLIENT_ID: "${{ secrets.ARM_CLIENT_ID }}"
       
 
-
-
-    # Checks that all Terraform configuration files adhere to a canonical format
+   # Checks that all Terraform configuration files adhere to a canonical format
     - name: Terraform Format
       id: fmt
       run: terraform fmt -check
