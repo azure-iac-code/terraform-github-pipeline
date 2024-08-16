@@ -4,7 +4,7 @@ provider "azurerm" {
 }
 
 terraform {
-  backend "azurerm" {
+  backend "storage_account" {
     resource_group_name  = "rg-runner"
     storage_account_name = "terraformdvbra"
     container_name       = "tfstate"
