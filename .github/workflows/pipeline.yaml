@@ -37,7 +37,7 @@ jobs:
         run: terraform plan -out tf.plan #-var-file variables-dev.tfvars
         working-directory: terraform
 
-      # - name: Terraform show
+      # - name: Terraform show #
       #   run: terraform show -json tf.plan | jq > tf.json 
       #   working-directory: terraform
 
