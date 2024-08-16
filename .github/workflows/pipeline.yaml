@@ -1,8 +1,9 @@
-name: Terraform-Automation-Pipeline
+name: Teste ansible automation
 on:
   push:
     branches:
       - main
+
 env:
   version: 1.0.23
 
@@ -19,7 +20,7 @@ jobs:
     steps:
       - uses: hashicorp/setup-terraform@v3
         with:
-          terraform_version: "1.9.4"
+          terraform_version: "1.9.2"
 
       - name: Checkout
         uses: actions/checkout@v4
@@ -33,7 +34,7 @@ jobs:
         working-directory: terraform
 
       - name: Terraform plan
-        run: terraform plan -out=tf.plan -lock=false
+        run: terraform plan -out tf.plan #-var-file variables-dev.tfvars
         working-directory: terraform
 
       # - name: Terraform show
@@ -52,7 +53,7 @@ jobs:
       #     file: tf.json
 
       - name: Terraform Apply
-        run: terraform apply -auto-approve tfplan
+        run: terraform apply -auto-approve tfplan #-var-file variables-dev.tfvars 
         working-directory: terraform
 
       # - name: Terraform Destroy
