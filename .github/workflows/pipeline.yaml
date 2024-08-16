@@ -23,7 +23,7 @@ jobs:
           terraform_version: "v1.9.4"
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v2
 
       - name: Terraform Init
         run: terraform init -var-file terraform.dev.tfvars
