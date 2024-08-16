@@ -10,8 +10,8 @@ env:
 jobs:
   Terraform:
     runs-on: self-hosted
-    outputs:
-      ANSIBLE_HOSTS: ${{ steps.tf.outputs.ANSIBLE_HOSTS }}
+    # outputs:
+    #   ANSIBLE_HOSTS: ${{ steps.tf.outputs.ANSIBLE_HOSTS }}
     env:
       ARM_USE_MSI: true
       ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
