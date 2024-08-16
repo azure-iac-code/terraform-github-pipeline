@@ -10,7 +10,6 @@ env:
 jobs:
   Terraform:
     runs-on: self-hosted
-  working-directory: terraform
     # outputs:
     #   ANSIBLE_HOSTS: ${{ steps.tf.outputs.ANSIBLE_HOSTS }}
     env:
