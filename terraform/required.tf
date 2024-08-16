@@ -1,35 +1,13 @@
-
+provider "azurerm" {
+  features {}
+  use_msi = true
+}
 
 terraform {
-  required_providers {
-    hashicorp = {
-      source  = "hashicorp/hashicorp"
-      version = ">= 3.0.0"
-    }
+  backend "azurerm" {
+    resource_group_name  = "rg-runner"
+    storage_account_name = "tfstatemarcusbf"
+    container_name       = "tfstate"
+    key                  = "key-github"
   }
 }
-
-provider "azurerm" {
-
-  features {}
-
-  use_msi = true
-
-}
-
-
-backend "azurerm" {
-
-  resource_group_name = "rg-runner"
-
-  storage_account_name = "terraformdvbra"
-
-  container_name = "tfstate"
-
-  key = "key-github"
-
-}
-
-
-
- 
