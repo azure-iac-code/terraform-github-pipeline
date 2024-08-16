@@ -14,6 +14,7 @@ provider "azurerm" {
 
 terraform {
   backend "azurerm" {
+    subscription_id = "f0c1e47b-a8bc-4071-9771-e81efd9b2cf1"
     resource_group_name  = "rg-runner"
     storage_account_name = "terraformdvbra"
     container_name       = "tfstate"
