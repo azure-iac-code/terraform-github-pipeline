@@ -1,10 +1,11 @@
+
 terraform {
-    required_providers {
-        resource = {
-            source  = "hashicorp/resource"
-            version = "~>3.0"
-        }
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "~>3.0"
     }
+  }
 }
 
 provider "azurerm" {
@@ -14,7 +15,7 @@ provider "azurerm" {
 
 terraform {
   backend "azurerm" {
-    subscription_id = "f0c1e47b-a8bc-4071-9771-e81efd9b2cf1"
+    subscription_id      = "f0c1e47b-a8bc-4071-9771-e81efd9b2cf1"
     resource_group_name  = "rg-runner"
     storage_account_name = "terraformdvbra"
     container_name       = "tfstate"
