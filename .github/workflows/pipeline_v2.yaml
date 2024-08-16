@@ -1,40 +1,34 @@
-name: Usando Terraform OpenID Connect
+name: Run Terraform with OpenID Connect
 on: 
   push:
     branches:
      - main
-    paths:
-       - terraform/**
-  pull_request:
-    # paths:
-    #   - terraform/**
-    branches:
-     - main
-#  workflow_dispatch:
+#   pull_request:
+#     branches:
+#      - main
+#   workflow_dispatch:
 
 # permissions:
 #       id-token: write
 #       contents: read
 #       pull-requests: write
       
-: 
+jobs: 
   analysis:
     if: github.event_name == 'pull_request'
     defaults:
-      run:jobs
-        working-directory: terraform
+      run:
+        working-directory: terraform-example-deploy
     name: Analyse the Terraform
     environment: dev
-    runs-on: selfhosted
+    runs-on: ubuntu-latest
     env:
-      ARM_SUBSCRIPTION_ID: "${{ secrets.ARM_SUBSCRIPTION_ID }}"
-      ARM_TENANT_ID: "${{ secrets.ARM_TENANT_ID }}"
-      ARM_CLIENT_ID: "${{ secrets.ARM_CLIENT_ID }}"
-      #ARM_CLIENT_SECRET: "${{ secrets.ARM_CLIENT_SECRET }}"
+      ARM_CLIENT_ID: "${{ secrets.AZURE_CLIENT_ID }}"
+      ARM_SUBSCRIPTION_ID: "${{ secrets.AZURE_SUBSCRIPTION_ID }}"
+      ARM_TENANT_ID: "${{ secrets.AZURE_TENANT_ID }}"
     steps:
-
     - name: Checkout Code
-      uses: actions/checkout@v4
+      uses: actions/checkout@v2.5.0
 
     - name: HashiCorp - Setup Terraform
       uses: hashicorp/setup-terraform@v2.0.3
@@ -45,22 +39,22 @@ on:
     - name: Terraform Init
       run: |
         terraform init \
-        -backend-config="resource_group_name=${{secrets.BACKEND_ARM_RESOURCE_GROUP_NAME}}" \
-        -backend-config="storage_account_name=${{secrets.BACKEND_ARM_STORAGE_ACCOUNT_NAME}}" \
-        -backend-config="container_name=${{secrets.BACKEND_ARM_STORAGE_ACCOUNT_CONTAINER_NAME}}"
+        -backend-config="resource_group_name=${{secrets.BACKEND_AZURE_RESOURCE_GROUP_NAME}}" \
+        -backend-config="storage_account_name=${{secrets.BACKEND_AZURE_STORAGE_ACCOUNT_NAME}}" \
+        -backend-config="container_name=${{secrets.BACKEND_AZURE_STORAGE_ACCOUNT_CONTAINER_NAME}}"
         
     - name: Terraform Validate
       run: terraform validate -no-color
       
-    # - name: brasec
-    #   uses: aquasecurity/brasec-pr-commenter-action@v1.2.0
+    # - name: tfsec
+    #   uses: aquasecurity/tfsec-pr-commenter-action@v1.2.0
     #   with:
-    #     brasec_args: --soft-fail
+    #     tfsec_args: --soft-fail
     #     github_token: ${{ github.token }}
         
     - name: Terraform Plan
       id: plan
-      run: terraform plan -no-color -input=false -var "resource_group_name=${{secrets.ARM_RESOURCE_GROUP_NAME}}"
+      run: terraform plan -no-color -input=false -var "resource_group_name=${{secrets.AZURE_RESOURCE_GROUP_NAME}}"
       continue-on-error: true
       
     - name: Update Pull Request
@@ -99,16 +93,16 @@ on:
     if: github.event_name != 'pull_request' && contains(toJson(github.event.commits), 'Initial commit') == false
     defaults:
       run:
-        working-directory: terraform
+        working-directory: terraform-example-deploy
       
-    name: Deploy -> Dev
+    name: Deploy to Dev
     environment: dev
     runs-on: ubuntu-latest
     env:
-      ARM_CLIENT_ID: "${{ secrets.ARM_CLIENT_ID }}"
-      ARM_SUBSCRIPTION_ID: "${{ secrets.ARM_SUBSCRIPTION_ID }}"
-      ARM_TENANT_ID: "${{ secrets.ARM_TENANT_ID }}"
-      ARM_USE_ARMAD: true # Esta variável de ambiente informa ao back-end para usar a autenticação do ARMAD ao invés de tentar criar uma chave.Com isso podemos limitar as permissões aplicadas à conta de armazenamento e ao contêiner ao menor privilégio: https://developer.hashicorp.com/terraform/language/settings/backends/ARMrm#use_ARMad_auth
+      ARM_CLIENT_ID: "${{ secrets.AZURE_CLIENT_ID }}"
+      ARM_SUBSCRIPTION_ID: "${{ secrets.AZURE_SUBSCRIPTION_ID }}"
+      ARM_TENANT_ID: "${{ secrets.AZURE_TENANT_ID }}"
+      ARM_USE_AZUREAD: true # This environment variable tells the backend to use AzureAD auth rather than trying a create a key. It means we can limit the permissions applied to the storage account and container to least priviledge: https://developer.hashicorp.com/terraform/language/settings/backends/azurerm#use_azuread_auth
 
     steps:
     - name: Checkout Code
@@ -120,28 +114,28 @@ on:
     - name: Terraform Init
       run: |
         terraform init \
-        -backend-config="resource_group_name=${{secrets.BACKEND_ARM_RESOURCE_GROUP_NAME}}" \
-        -backend-config="storage_account_name=${{secrets.BACKEND_ARM_STORAGE_ACCOUNT_NAME}}" \
-        -backend-config="container_name=${{secrets.BACKEND_ARM_STORAGE_ACCOUNT_CONTAINER_NAME}}"
+        -backend-config="resource_group_name=${{secrets.BACKEND_AZURE_RESOURCE_GROUP_NAME}}" \
+        -backend-config="storage_account_name=${{secrets.BACKEND_AZURE_STORAGE_ACCOUNT_NAME}}" \
+        -backend-config="container_name=${{secrets.BACKEND_AZURE_STORAGE_ACCOUNT_CONTAINER_NAME}}"
       
     - name: Terraform Apply
-      run: terraform apply -auto-approve -var "resource_group_name=${{secrets.ARM_RESOURCE_GROUP_NAME}}"
+      run: terraform apply -auto-approve -var "resource_group_name=${{secrets.AZURE_RESOURCE_GROUP_NAME}}"
 
-  deploy-to-homolog:
+  deploy-to-test:
     if: github.event_name != 'pull_request'
     needs: deploy-to-dev
     defaults:
       run:
-        working-directory: terraform
+        working-directory: terraform-example-deploy
       
-    name: Deploy -> Homolog
-    environment: homolog
+    name: Deploy to Test
+    environment: test
     runs-on: ubuntu-latest
     env:
-      ARM_CLIENT_ID: "${{ secrets.ARM_CLIENT_ID }}"
-      ARM_SUBSCRIPTION_ID: "${{ secrets.ARM_SUBSCRIPTION_ID }}"
-      ARM_TENANT_ID: "${{ secrets.ARM_TENANT_ID }}"
-      ARM_USE_ARMAD: true
+      ARM_CLIENT_ID: "${{ secrets.AZURE_CLIENT_ID }}"
+      ARM_SUBSCRIPTION_ID: "${{ secrets.AZURE_SUBSCRIPTION_ID }}"
+      ARM_TENANT_ID: "${{ secrets.AZURE_TENANT_ID }}"
+      ARM_USE_AZUREAD: true
 
     steps:
     - name: Checkout Code
@@ -153,42 +147,41 @@ on:
     - name: Terraform Init
       run: |
         terraform init \
-        -backend-config="resource_group_name=${{secrets.BACKEND_ARM_RESOURCE_GROUP_NAME}}" \
-        -backend-config="storage_account_name=${{secrets.BACKEND_ARM_STORAGE_ACCOUNT_NAME}}" \
-        -backend-config="container_name=${{secrets.BACKEND_ARM_STORAGE_ACCOUNT_CONTAINER_NAME}}"
+        -backend-config="resource_group_name=${{secrets.BACKEND_AZURE_RESOURCE_GROUP_NAME}}" \
+        -backend-config="storage_account_name=${{secrets.BACKEND_AZURE_STORAGE_ACCOUNT_NAME}}" \
+        -backend-config="container_name=${{secrets.BACKEND_AZURE_STORAGE_ACCOUNT_CONTAINER_NAME}}"
       
     - name: Terraform Apply
-      run: terraform apply -auto-approve -var "resource_group_name=${{secrets.ARM_RESOURCE_GROUP_NAME}}"
+      run: terraform apply -auto-approve -var "resource_group_name=${{secrets.AZURE_RESOURCE_GROUP_NAME}}"
 
   deploy-to-prod:
     if: github.event_name != 'pull_request'
-    needs: deploy-to-homolog
+    needs: deploy-to-test
     defaults:
       run:
-        working-directory: terraform
+        working-directory: terraform-example-deploy
       
-    name: Deploy -> Prod
+    name: Deploy to Prod
     environment: prod
     runs-on: ubuntu-latest
     env:
-      ARM_CLIENT_ID: "${{ secrets.ARM_CLIENT_ID }}"
-      ARM_SUBSCRIPTION_ID: "${{ secrets.ARM_SUBSCRIPTION_ID }}"
-      ARM_TENANT_ID: "${{ secrets.ARM_TENANT_ID }}"
-      ARM_USE_ARMAD: true
+      ARM_CLIENT_ID: "${{ secrets.AZURE_CLIENT_ID }}"
+      ARM_SUBSCRIPTION_ID: "${{ secrets.AZURE_SUBSCRIPTION_ID }}"
+      ARM_TENANT_ID: "${{ secrets.AZURE_TENANT_ID }}"
+      ARM_USE_AZUREAD: true
 
     steps:
     - name: Checkout Code
       uses: actions/checkout@v2.5.0
 
-    #  Exemplo de como autenticar via ARM CLI
+    # NOTE This is an example of how to login to the Azure CLI, this step is not needed for Terraform
     #- name: 'Az CLI login'
-    #  uses: ARM/login@v1
-    #
+    #  uses: azure/login@v1
     #  with:
-    #      client-id: ${{ secrets.ARM_CLIENT_ID }}
-    #      tenant-id: ${{ secrets.ARM_TENANT_ID }}
-    #      subscription-id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-    #- name: 'Run ARM CLI commands'
+    #      client-id: ${{ secrets.AZURE_CLIENT_ID }}
+    #      tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+    #      subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+    #- name: 'Run Azure CLI commands'
     #  run: |
     #      az account show
     #      az group list
@@ -199,9 +192,9 @@ on:
     - name: Terraform Init
       run: |
         terraform init \
-        -backend-config="resource_group_name=${{secrets.BACKEND_ARM_RESOURCE_GROUP_NAME}}" \
-        -backend-config="storage_account_name=${{secrets.BACKEND_ARM_STORAGE_ACCOUNT_NAME}}" \
-        -backend-config="container_name=${{secrets.BACKEND_ARM_STORAGE_ACCOUNT_CONTAINER_NAME}}"
+        -backend-config="resource_group_name=${{secrets.BACKEND_AZURE_RESOURCE_GROUP_NAME}}" \
+        -backend-config="storage_account_name=${{secrets.BACKEND_AZURE_STORAGE_ACCOUNT_NAME}}" \
+        -backend-config="container_name=${{secrets.BACKEND_AZURE_STORAGE_ACCOUNT_CONTAINER_NAME}}"
       
     - name: Terraform Apply
-      run: terraform apply -auto-approve -var "resource_group_name=${{secrets.ARM_RESOURCE_GROUP_NAME}}"
+      run: terraform apply -auto-approve -var "resource_group_name=${{secrets.AZURE_RESOURCE_GROUP_NAME}}"
