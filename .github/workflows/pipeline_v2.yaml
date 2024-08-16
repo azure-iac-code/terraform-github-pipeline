@@ -27,8 +27,6 @@ jobs:
       ARM_SUBSCRIPTION_ID: "${{ secrets.AZURE_SUBSCRIPTION_ID }}"
       ARM_TENANT_ID: "${{ secrets.AZURE_TENANT_ID }}"
     steps:
-    - name: Checkout Code
-      uses: actions/checkout@v2.5.0
 
     - name: 'Az CLI login'
       uses: azure/login@v1
@@ -37,6 +35,9 @@ jobs:
       run: |
         az account show
         az group list  
+      
+    - name: Checkout Code
+      uses: actions/checkout@v2.5.0
 
     - name: HashiCorp - Setup Terraform
       uses: hashicorp/setup-terraform@v2.0.3
