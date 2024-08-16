@@ -14,11 +14,6 @@ provider "azurerm" {
   features {}
 }
 
-resource "azurerm_resource_group" "rg" {
-  name     = "myTFResourceGroup"
-  location = "eastus"
-}
-
 # terraform {
 #   required_providers {
 #     azurerm = {
@@ -27,10 +22,10 @@ resource "azurerm_resource_group" "rg" {
 #     }
 #   }
 # }
-# resource "resource_group_name" "rg_keyvault" {
-#   name     = "rgdvditiautovnetacoe"
-#   location = "eastus2"
-# }
+resource "resource_group_name" "rg_keyvault" {
+  name     = "rgdvditiautovnetacoe"
+  location = "eastus2"
+}
 # #-------------------------------------------
 # #Data do recurso vnet e subnet jump
 # #-------------------------------------------
