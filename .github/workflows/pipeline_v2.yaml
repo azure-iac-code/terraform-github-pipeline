@@ -15,7 +15,7 @@ on:
       
 jobs: 
   analysis:
-    if: github.event_name == 'push'
+    if: github.event_name ==! 'pull_request'
     defaults:
       run:
         working-directory: terraform
@@ -29,10 +29,6 @@ jobs:
     steps:
     - name: Checkout Code
       uses: actions/checkout@v2.5.0
-
-    - name: Install Azure CLI
-     run: |
-      curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 
     - name: HashiCorp - Setup Terraform
       uses: hashicorp/setup-terraform@v2.0.3
