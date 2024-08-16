@@ -30,16 +30,16 @@ jobs:
     - name: Checkout Code
       uses: actions/checkout@v2.5.0
 
-    - name: HashiCorp - Setup Terraform
-      uses: hashicorp/setup-terraform@v2.0.3
-
     - name: 'Az CLI login'
       uses: azure/login@v1
     
     - name: 'Run Azure CLI commands'
       run: |
         az account show
-        az group list
+        az group list  
+
+    - name: HashiCorp - Setup Terraform
+      uses: hashicorp/setup-terraform@v2.0.3
 
     - name: Terraform Fmt
       run: terraform fmt -check
