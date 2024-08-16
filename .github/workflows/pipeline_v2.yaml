@@ -21,7 +21,7 @@ jobs:
         working-directory: terraform
     name: Analyse the Terraform
     environment: dev
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     env:
       ARM_CLIENT_ID: "${{ secrets.AZURE_CLIENT_ID }}"
       ARM_SUBSCRIPTION_ID: "${{ secrets.AZURE_SUBSCRIPTION_ID }}"
@@ -97,7 +97,7 @@ jobs:
       
     name: Deploy to Dev
     environment: dev
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     env:
       ARM_CLIENT_ID: "${{ secrets.AZURE_CLIENT_ID }}"
       ARM_SUBSCRIPTION_ID: "${{ secrets.AZURE_SUBSCRIPTION_ID }}"
@@ -130,7 +130,7 @@ jobs:
       
     name: Deploy to Test
     environment: test
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     env:
       ARM_CLIENT_ID: "${{ secrets.AZURE_CLIENT_ID }}"
       ARM_SUBSCRIPTION_ID: "${{ secrets.AZURE_SUBSCRIPTION_ID }}"
@@ -163,7 +163,7 @@ jobs:
       
     name: Deploy to Prod
     environment: prod
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     env:
       ARM_CLIENT_ID: "${{ secrets.AZURE_CLIENT_ID }}"
       ARM_SUBSCRIPTION_ID: "${{ secrets.AZURE_SUBSCRIPTION_ID }}"
