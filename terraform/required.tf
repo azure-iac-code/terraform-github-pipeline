@@ -14,10 +14,10 @@ provider "azurerm" {
   use_msi = true
 }
 
-resource "azurerm_resource_group" "rg" {
-  name     = "myTFResourceGroup"
-  location = "eastus"
-}
+# resource "azurerm_resource_group" "rg" {
+#   name     = "myTFResourceGroup"
+#   location = "eastus"
+# }
 
 terraform {
   backend "azurerm" {
