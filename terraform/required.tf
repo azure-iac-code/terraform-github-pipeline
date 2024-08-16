@@ -7,10 +7,10 @@
 #   }
 # }
 
-# provider "azurerm" {
-#   features {}
-#   use_msi = true
-# }
+provider "azurerm" {
+  features {}
+  use_msi = true
+}
 
 terraform {
   backend "azurerm" {
