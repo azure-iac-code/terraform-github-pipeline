@@ -74,14 +74,14 @@ resource "azurerm_private_endpoint" "this" {
   }
 }
 
-resource "azurerm_key_vault_access_policy" "this" {
-  key_vault_id            = azurerm_key_vault.this.id
-  tenant_id               = data.azurerm_client_config.current.tenant_id
-  object_id               = azurerm_key_vault_access_policy.this.id
-  key_permissions         = ["get", "list"]
-  secret_permissions      = ["get", "list"]
-  certificate_permissions = ["get", "list"]
-}
+# resource "azurerm_key_vault_access_policy" "this" {
+#   key_vault_id            = azurerm_key_vault.this.id
+#   tenant_id               = data.azurerm_client_config.current.tenant_id
+#   object_id               = azurerm_key_vault_access_policy.this.id
+#   key_permissions         = ["get", "list"]
+#   secret_permissions      = ["get", "list"]
+#   certificate_permissions = ["get", "list"]
+# }
 
 # resource "azurerm_role_assignment" "this" {
 #   scope                = azurerm_key_vault.this.id
