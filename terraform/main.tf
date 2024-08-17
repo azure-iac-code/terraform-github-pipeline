@@ -46,13 +46,14 @@ resource "azurerm_key_vault" "this" {
     ip_rules                   = var.network_acls_ip_rules
   }
 
-  # access_policy {
-  #   tenant_id               = data.azurerm_client_config.current.tenant_id
-  #   object_id               = azurerm_key_vault_access_policy.this.id
-  #   key_permissions         = ["get", "list"]
-  #   secret_permissions      = ["get", "list"]
-  #   certificate_permissions = ["get", "list"]
-  # }
+#   access_policy {
+#     tenant_id               = data.azurerm_client_config.current.tenant_id
+#     object_id               = azurerm_key_vault_access_policy.this.id
+#     key_permissions         = ["get", "list"]
+#     secret_permissions      = ["get", "list"]
+#     certificate_permissions = ["get", "list"]
+#   }
+# }
 }
 
 #----------------------------------------
@@ -67,7 +68,7 @@ resource "azurerm_private_endpoint" "this" {
 
   private_service_connection {
     name                           = "pvtcn${var.ambiente}bra${var.azurerm_key_vault_name}"
-    private_connection_resource_id = data.azurerm_key_vault.this.id
+    private_connection_resource_id = azurerm_key_vault.this.id
     is_manual_connection           = var.private_service_connection_is_manual_connection
     subresource_names              = ["vault"]
   }
