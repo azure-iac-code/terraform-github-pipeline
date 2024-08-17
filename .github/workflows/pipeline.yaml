@@ -26,7 +26,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Terraform Init
-        run: terraform init -var-file terraform.dev.tfvars
+        run: terraform init #-var-file terraform.dev.tfvars
         working-directory: terraform
 
       - name: Terraform validate
@@ -34,8 +34,14 @@ jobs:
         working-directory: terraform
 
       - name: Terraform plan
-        run: terraform plan -var-file terraform.dev.tfvars
+        run: terraform plan -out=tfplan #-var-file terraform.dev.tfvars
         working-directory: terraform
+
+      - name: Save Terraform Plan
+        run: echo ${{ steps.terraform.outputs.plan }} > tfplan
+
+      - name: Display Terraform Plan
+        run: cat tfplan
 
       # - name: Terraform show #
       #   run: terraform show -json tf.plan | jq > tf.json 
@@ -53,7 +59,7 @@ jobs:
       #     file: tf.json
 
       - name: Terraform Apply
-        run: terraform apply -var-file terraform.dev.tfvars -auto-approve
+        run: terraform apply tfplan -auto-approve #-var-file terraform.dev.tfvars -auto-approve
         working-directory: terraform
 
       # - name: Terraform Destroy
