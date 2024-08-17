@@ -49,9 +49,9 @@ resource "azurerm_key_vault" "this" {
 #   access_policy {
 #     tenant_id               = data.azurerm_client_config.current.tenant_id
 #     object_id               = azurerm_key_vault_access_policy.this.id
-#     key_permissions         = ["get", "list"]
-#     secret_permissions      = ["get", "list"]
-#     certificate_permissions = ["get", "list"]
+#     key_permissions         = ["Get", "List"]
+#     secret_permissions      = ["Get", "List"]
+#     certificate_permissions = ["Get", "List"]
 #   }
 # }
 }
@@ -78,9 +78,9 @@ resource "azurerm_key_vault_access_policy" "this" {
   key_vault_id            = azurerm_key_vault.this.id
   tenant_id               = data.azurerm_client_config.current.tenant_id
   object_id               = azurerm_key_vault_access_policy.this.id
-  key_permissions         = ["get", "list"]
-  secret_permissions      = ["get", "list"]
-  certificate_permissions = ["get", "list"]
+  key_permissions         = ["Get", "List"]
+  secret_permissions      = ["Get", "List"]
+  certificate_permissions = ["Get", "List"]
 }
 
 # resource "azurerm_role_assignment" "this" {
@@ -123,7 +123,7 @@ resource "azurerm_key_vault_access_policy" "this" {
 #   namespace_name      = "eventhubmgmtsiemqradar"
 #   resource_group_name = azurerm_resource_group.this.name
 #   eventhub_name       = azurerm_eventhub.this.name
-#   listen              = true
+#   Listen              = true
 #   send                = true
 #   manage              = true
 # }
