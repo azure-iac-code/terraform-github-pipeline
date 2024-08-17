@@ -48,7 +48,7 @@ resource "azurerm_key_vault" "this" {
   enable_rbac_authorization       = var.enable_rbac_authorization
   soft_delete_retention_days      = var.soft_delete_retention_days
   purge_protection_enabled        = var.purge_protection_enabled
-  public_network_access_enabled   = var.public_network_access_enabled
+  #public_network_access_enabled   = var.public_network_access_enabled
   # soft_delete_enabled      = true
   # purge_protection_enabled = true
   #private_endpoint_enabled = true
