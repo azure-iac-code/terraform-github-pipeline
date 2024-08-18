@@ -140,13 +140,13 @@ resource "azurerm_eventhub" "this" {
 #   resource_group_name = azurerm_resource_group.this.name
 # }
 
-resource "azurerm_monitor_diagnostic_setting" "this" {
-  name                           = "${var.azurerm_key_vault_name}_diagnostic"
-  target_resource_id             = azurerm_key_vault.this.id
-  eventhub_name                  = var.eventhub_name
-  eventhub_authorization_rule_id = data.azurerm_eventhub_namespace_authorization_rule.this.id
+# resource "azurerm_monitor_diagnostic_setting" "this" {
+#   name                           = "${var.azurerm_key_vault_name}_diagnostic"
+#   target_resource_id             = azurerm_key_vault.this.id
+#   eventhub_name                  = var.eventhub_name
+#   eventhub_authorization_rule_id = data.azurerm_eventhub_namespace_authorization_rule.this.id
 
-  enabled_log {
-    category_group = "audit"
-  }
-}
+#   enabled_log {
+#     category_group = "audit"
+#   }
+# }
