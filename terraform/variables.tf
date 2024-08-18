@@ -134,15 +134,15 @@ variable "azurerm_key_vault_access_policy" {
       key_vault_id           = "kvazudvbraditiauto500"
       tenant_id              = "cf36141c-ddd7-45a7-b073-111f66d0b30c"
       object_id              = "ami-certificados-monitoracao"
-      secret_permissions     = ["get", "list"]
-      certificate_permissions = ["get", "list"]
+      secret_permissions     = ["Get", "List"]
+      certificate_permissions = ["Get", "List"]
     }
     "sp-servicenow-keyvault-4250-prd" = {
       key_vault_id           = "kvazudvbraditiauto500"
       tenant_id              = "cf36141c-ddd7-45a7-b073-111f66d0b30c"
       object_id              = "sp-servicenow-keyvault-4250-prd"
-      secret_permissions     = ["get", "list"]
-      certificate_permissions = ["get", "list"]
+      secret_permissions     = ["Get", "List"]
+      certificate_permissions = ["Get", "List"]
     }
     "gd4250_seguranca_acessos_az" = {
       key_vault_id           = "kvazudvbraditiauto500"
