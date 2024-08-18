@@ -97,7 +97,7 @@ resource "azurerm_key_vault_access_policy" "this" {
   key_permissions         = ["Get", "List"]
   secret_permissions      = ["Get", "List"]
   certificate_permissions = ["Get", "List"]
-  depends_on = [azurerm_client_config.current]
+  depends_on = [data.azurerm_client_config.current]
 }
 
 # resource "azurerm_role_assignment" "this" {
