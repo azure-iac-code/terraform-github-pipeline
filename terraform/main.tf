@@ -137,16 +137,15 @@ resource "azurerm_role_assignment" "this" {
 #   principal_id         = data.azurerm_client_config.current.object_id
 # }
 
-# resource "azurerm_key_vault_diagnostic_setting" "this" {
-#   name                            = "this-diagnostic-setting"
-#   key_vault_id                    = azurerm_key_vault.this.id
-#   event_hub_name                  = "eventhubmgmtsiemqradar"
-#   event_hub_authorization_rule_id = azurerm_eventhub_namespace_authorization_rule.this.id
-#   logs {
-#     category = "AuditEvent"
-#     enabled  = true
-#   }
-# }
+resource "azurerm_monitor_diagnostic_setting" "this" {
+  name                           = "${var.azurerm_key_vault_name}_diagnostic"
+  target_resource_id             = azurerm_key_vault.this.id
+  eventhub_name                  = var.eventhub_name
+  eventhub_authorization_rule_id = data.azurerm_eventhub_namespace_authorization_rule.this.id
+  enabled_log {
+    category_group = "audit"
+  }
+}
 
 # resource "azurerm_eventhub_namespace_authorization_rule" "this" {
 #   name                = "this-authorization-rule"

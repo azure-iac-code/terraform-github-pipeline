@@ -10,15 +10,6 @@
 #   type        = string
 # }
 
-# # variable "azurerm_monitor_diagnostic_setting_name" {
-# #   description = "Nome que será usado para o Key Vault"
-# #   type        = string
-# #   default = "azmonitordvkv001"
-# # }
-
-
-
-
 # variable "azurerm_private_dns_zone_resource_group_name" {
 #   description = "Nome do grupo de recurso existente da zona de DNS"
 #   type        = string
@@ -82,11 +73,7 @@
 # #---------------------------------------------------------------
 # # Dados Log Analitics
 # #---------------------------------------------------------------
-# variable "azurerm_eventhub_namespace_authorization_rule_name" {
-#   description = "Nome da regra de autorização do Event Hub"
-#   type        = string
-#   default     = "RootManageSharedAccessKey"
-# }
+
 
 # variable "azurerm_eventhub_namespace_authorization_rule_resource_group_name" {
 #   description = "Nome do Grupo de Recurso onde se encontra o Event Hub"
@@ -98,12 +85,6 @@
 #   description = "Nome do namespace do Event Hub"
 #   type        = string
 #   default     = "eventhubmgmtsiemqradar"
-# }
-
-# variable "eventhub_name" {
-#   description = "Nome do Event Hub"
-#   type        = string
-#   default     = "ehbrmgmtsiemqradar"
 # }
 
 
@@ -194,6 +175,17 @@ variable "private_service_connection_is_manual_connection" {
   default     = false
 }
 
+variable "azurerm_monitor_diagnostic_setting_name" {
+  description = "Nome que será usado para o Key Vault"
+  type        = string
+  default = "azmonitordvkv001"
+}
+
+variable "eventhub_name" {
+  description = "Nome do Event Hub"
+  type        = string
+  default     = "ehbrmgmtsiemqradar"
+}
 
 
 
