@@ -130,21 +130,19 @@ resource "azurerm_role_assignment" "this" {
 #   principal_id         = data.azurerm_client_config.current.object_id
 # }
 
-resource "azurerm_eventhub_namespace_authorization_rule" "this" {
-  name                = var.azurerm_eventhub_namespace_authorization_rule_name
-  resource_group_name = var.azurerm_eventhub_namespace_authorization_rule_resource_group_name
-  namespace_name      = var.namespace_name
-  send                = true
-  manage              = true
-  #  provider            = azurerm.ditigerenciamento
-}
-
 resource "azurerm_eventhub" "this" {
   name                = var.eventhub_name
   namespace_name      = var.namespace_name #azurerm_eventhub_namespace.this.name
-  resource_group_name = var.azurerm_eventhub_resource_group_name
+  resource_group_name = var.azurerm_eventhub_namespace_authorization_rule_resource_group_name
   partition_count     = 2
   message_retention   = 1
+}
+
+data "azurerm_eventhub_namespace_authorization_rule" "this" {
+  name                = var.azurerm_eventhub_namespace_authorization_rule_name
+  resource_group_name = var.azurerm_eventhub_namespace_authorization_rule_resource_group_name
+  namespace_name      = var.namespace_name
+  #  provider            = azurerm.ditigerenciamento
 }
 
 # resource "azurerm_eventhub_consumer_group" "this" {
@@ -154,13 +152,13 @@ resource "azurerm_eventhub" "this" {
 #   resource_group_name = azurerm_resource_group.this.name
 # }
 
-# resource "azurerm_monitor_diagnostic_setting" "this" {
-#   name                           = "${var.azurerm_key_vault_name}_diagnostic"
-#   target_resource_id             = azurerm_key_vault.this.id
-#   eventhub_name                  = var.eventhub_name
-#   eventhub_authorization_rule_id = data.azurerm_eventhub_namespace_authorization_rule.this.id
+resource "azurerm_monitor_diagnostic_setting" "this" {
+  name                           = "${var.azurerm_key_vault_name}_diagnostic"
+  target_resource_id             = azurerm_key_vault.this.id
+  eventhub_name                  = var.eventhub_name
+  eventhub_authorization_rule_id = data.azurerm_eventhub_namespace_authorization_rule.this.id
 
-#   enabled_log {
-#     category_group = "audit"
-#   }
-# }
+  enabled_log {
+    category_group = "audit"
+  }
+}
