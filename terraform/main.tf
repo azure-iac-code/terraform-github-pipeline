@@ -89,9 +89,9 @@ resource "azurerm_key_vault_access_policy" "this" {
 
 resource "azurerm_role_assignment" "key_vault" {
     count                = 4
-    scope                = "/subscriptions/f0c1e47b-a8bc-4071-9771-e81efd9b2cf1/resourceGroups/rg-keyvault/providers/Microsoft.KeyVault/vaults/kvazudvbraditiauto500"
+    scope                = "/subscriptions/${var.subscription_id}/resourceGroups/${var.azurerm_key_vault_resource_group_name}/providers/Microsoft.KeyVault/vaults/${var.azurerm_key_vault_name}"
     role_definition_name = element(["Key Vault Contributor", "Key Vault Reader", "Security Admin", "Security Reader"], count.index)
-    principal_id         = "TESTKEYVAULTGROUP"
+    principal_id         = var.azurerm_role_assignment_principal_id
 }
 
 # resource "azurerm_role_assignment" "this" {

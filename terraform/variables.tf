@@ -114,9 +114,20 @@ variable "namespace_name" {
   default     = "eventhubmgmtsiemqradar"
 }
 
-
 variable "ambiente" {
   description = "Ambiente"
   type        = string
   default     = "dv"
+}
+
+variable "azurerm_role_assignment_principal_id" {
+  description = "Nome do grupo utilizado para a role"
+  type        = string
+  default     = "GRP-AZU-BRAD-DITI-IPSU-IMSA"
+}
+
+variable "subscription_id" {
+  description = "Nome do grupo utilizado para a role"
+  type        = string
+  default     = "f0c1e47b-a8bc-4071-9771-e81efd9b2cf1"
 }
