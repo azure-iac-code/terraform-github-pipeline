@@ -74,20 +74,6 @@
 # # Dados Log Analitics
 # #---------------------------------------------------------------
 
-
-# variable "azurerm_eventhub_namespace_authorization_rule_resource_group_name" {
-#   description = "Nome do Grupo de Recurso onde se encontra o Event Hub"
-#   type        = string
-#   default     = "rg-siem-qradar"
-# }
-
-# variable "namespace_name" {
-#   description = "Nome do namespace do Event Hub"
-#   type        = string
-#   default     = "eventhubmgmtsiemqradar"
-# }
-
-
 #---------------------------------------------------------------
 #                            KEYVAULT
 #---------------------------------------------------------------
@@ -187,7 +173,23 @@ variable "eventhub_name" {
   default     = "ehbrmgmtsiemqradar"
 }
 
+variable "azurerm_eventhub_namespace_authorization_rule_name" {
+  description = "Nome da regra de autorização do Event Hub"
+  type        = string
+  default     = "RootManageSharedAccessKey"
+}
 
+variable "azurerm_eventhub_namespace_authorization_rule_resource_group_name" {
+  description = "Nome do Grupo de Recurso onde se encontra o Event Hub"
+  type        = string
+  default     = "rg-siem-qradar"
+}
+
+variable "namespace_name" {
+  description = "Nome do namespace do Event Hub"
+  type        = string
+  default     = "eventhubmgmtsiemqradar"
+}
 
 
 

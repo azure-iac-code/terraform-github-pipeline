@@ -75,14 +75,6 @@ resource "azurerm_key_vault" "this" {
     virtual_network_subnet_ids = [data.azurerm_subnet.keyvault_subnet.id, data.azurerm_subnet.jump_subnet.id]
     ip_rules                   = var.network_acls_ip_rules
   }
-
-  # access_policy {
-  #   tenant_id               = data.azurerm_client_config.current.tenant_id
-  #   object_id               = azurerm_key_vault_access_policy.this.object_id #azurerm_key_vault_access_policy.this.id
-  #   key_permissions         = ["Get", "List"]
-  #   secret_permissions      = ["Get", "List"]
-  #   certificate_permissions = ["Get", "List"]
-  # }
 }
 
 #----------------------------------------
@@ -107,9 +99,31 @@ resource "azurerm_key_vault_access_policy" "this" {
   key_vault_id            = azurerm_key_vault.this.id
   tenant_id               = data.azurerm_client_config.current.tenant_id
   object_id               = data.azurerm_client_config.current.object_id
-  key_permissions         = ["Get", "List"]
-  secret_permissions      = ["Get", "List"]
-  certificate_permissions = ["Get", "List"]
+  # key_permissions         = ["Get", "List"]
+  # secret_permissions      = ["Get", "List"]
+  # certificate_permissions = ["Get", "List"]
+  
+        {
+            name: "ami-certificados-monitoracao",
+            key_permissions         = ["Get", "List"],
+            certificate_permissions = ["Get", "List"],
+            secret_permissions      = ["Get", "List"]
+        },
+        {
+            name: "sp-servicenow-keyvault-4250-prd",
+            key_permissions         = ["Get", "List"],
+            certificate_permissions = ["Get", "List"],
+            secret_permissions      = ["Get", "List"]
+        },
+        {
+            name: "gd4250_seguranca_acessos_az",
+            operations: ["All"]
+        },
+        {
+            name: "grp-azu-brad-diti-ipsu-imsa'",
+            operations: ["All"]
+        }
+
   depends_on = [data.azurerm_client_config.current]
 }
 
@@ -137,37 +151,37 @@ resource "azurerm_role_assignment" "this" {
 #   principal_id         = data.azurerm_client_config.current.object_id
 # }
 
-resource "azurerm_monitor_diagnostic_setting" "this" {
-  name                           = "${var.azurerm_key_vault_name}_diagnostic"
-  target_resource_id             = azurerm_key_vault.this.id
-  eventhub_name                  = var.eventhub_name
-  eventhub_authorization_rule_id = data.azurerm_eventhub_namespace_authorization_rule.this.id
-  enabled_log {
-    category_group = "audit"
-  }
+resource "azurerm_eventhub_namespace_authorization_rule" "this" {
+  name                = var.azurerm_eventhub_namespace_authorization_rule_name
+  resource_group_name = var.azurerm_eventhub_namespace_authorization_rule_resource_group_name
+  namespace_name      = var.namespace_name
+  send                = true
+  manage              = true
+#  provider            = azurerm.ditigerenciamento
 }
 
-# resource "azurerm_eventhub_namespace_authorization_rule" "this" {
-#   name                = "this-authorization-rule"
-#   namespace_name      = "eventhubmgmtsiemqradar"
-#   resource_group_name = azurerm_resource_group.this.name
-#   eventhub_name       = azurerm_eventhub.this.name
-#   Listen              = true
-#   send                = true
-#   manage              = true
-# }
-
-# resource "azurerm_eventhub" "this" {
-#   name                = "this-eventhub"
-#   namespace_name      = azurerm_eventhub_namespace.this.name
-#   resource_group_name = azurerm_resource_group.this.name
-#   partition_count     = 2
-#   message_retention   = 1
-# }
+resource "azurerm_eventhub" "this" {
+  name                = var.eventhub_name
+  namespace_name      = azurerm_eventhub_namespace.this.name
+  resource_group_name = azurerm_resource_group.this.name
+  partition_count     = 2
+  message_retention   = 1
+}
 
 # resource "azurerm_eventhub_consumer_group" "this" {
 #   name                = "this-consumer-group"
 #   eventhub_name       = azurerm_eventhub.this.name
-#   namespace_name      = azurerm_eventhub_namespace.this.name
+#   namespace_name      = var.namespace_name
 #   resource_group_name = azurerm_resource_group.this.name
+# }
+
+# resource "azurerm_monitor_diagnostic_setting" "this" {
+#   name                           = "${var.azurerm_key_vault_name}_diagnostic"
+#   target_resource_id             = azurerm_key_vault.this.id
+#   eventhub_name                  = var.eventhub_name
+#   eventhub_authorization_rule_id = data.azurerm_eventhub_namespace_authorization_rule.this.id
+  
+#   enabled_log {
+#     category_group = "audit"
+#   }
 # }
