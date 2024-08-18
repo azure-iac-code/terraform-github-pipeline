@@ -57,6 +57,14 @@ resource "azurerm_key_vault" "this" {
     virtual_network_subnet_ids = [data.azurerm_subnet.keyvault_subnet.id, data.azurerm_subnet.jump_subnet.id]
     ip_rules                   = var.network_acls_ip_rules
   }
+
+  access_policy {
+    tenant_id               = data.azurerm_client_config.current.tenant_id
+    object_id               = "ami-certificados-monitoracao"
+    key_permissions         = ["Get", "List"]
+    secret_permissions      = ["Get", "List"]
+    certificate_permissions = ["Get", "List"]
+  }
 }
 
 #----------------------------------------
@@ -75,7 +83,7 @@ resource "azurerm_private_endpoint" "this" {
     is_manual_connection           = var.private_service_connection_is_manual_connection
     subresource_names              = ["vault"]
   }
-  
+
   #      private_dns_zone_group {
   #    name                 = data.azurerm_private_dns_zone.this.name
   #    private_dns_zone_ids = [data.azurerm_private_dns_zone.this.id]
@@ -83,28 +91,28 @@ resource "azurerm_private_endpoint" "this" {
 
 }
 
-resource "azurerm_key_vault_access_policy" "this" {
-  key_vault_id            = azurerm_key_vault.this.id
-  tenant_id               = data.azurerm_client_config.current.tenant_id
-  object_id               = data.azurerm_client_config.current.object_id
-  key_permissions         = ["Get", "List"]
-  secret_permissions      = ["Get", "List"]
-  certificate_permissions = ["Get", "List"]
-  depends_on              = [data.azurerm_client_config.current]
-}
-
-resource "azurerm_role_assignment" "key_vault" {
-  count                = 4
-  scope                = "/subscriptions/${var.subscription_id}/resourceGroups/${var.azurerm_key_vault_resource_group_name}/providers/Microsoft.KeyVault/vaults/${var.azurerm_key_vault_name}"
-  role_definition_name = element(["Key Vault Contributor", "Key Vault Reader", "Security Admin", "Security Reader"], count.index)
-  principal_id         = var.azurerm_role_assignment_principal_id
-}
-
-# resource "azurerm_role_assignment" "this" {
-#   scope                = azurerm_key_vault.this.id
-#   role_definition_name = "Key Vault Contributor"
-#   principal_id         = data.azurerm_client_config.current.object_id
+# resource "azurerm_key_vault_access_policy" "this" {
+#   key_vault_id            = azurerm_key_vault.this.id
+#   tenant_id               = data.azurerm_client_config.current.tenant_id
+#   object_id               = data.azurerm_client_config.current.object_id
+#   key_permissions         = ["Get", "List"]
+#   secret_permissions      = ["Get", "List"]
+#   certificate_permissions = ["Get", "List"]
+#   depends_on              = [data.azurerm_client_config.current]
 # }
+
+# resource "azurerm_role_assignment" "key_vault" {
+#   count                = 4
+#   scope                = "/subscriptions/${var.subscription_id}/resourceGroups/${var.azurerm_key_vault_resource_group_name}/providers/Microsoft.KeyVault/vaults/${var.azurerm_key_vault_name}"
+#   role_definition_name = element(["Key Vault Contributor", "Key Vault Reader", "Security Admin", "Security Reader"], count.index)
+#   principal_id         = var.azurerm_role_assignment_principal_id
+# }
+
+resource "azurerm_role_assignment" "this" {
+  scope                = azurerm_key_vault.this.id
+  role_definition_name = "Key Vault Contributor"
+  principal_id         = data.azurerm_client_config.current.object_id
+}
 
 # resource "azurerm_role_assignment" "this" {
 #   scope                = azurerm_key_vault.this.id
