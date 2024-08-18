@@ -126,12 +126,12 @@ resource "azurerm_eventhub" "this" {
   message_retention   = 1
 }
 
-data "azurerm_eventhub_namespace_authorization_rule" "this" {
-  name                = var.azurerm_eventhub_namespace_authorization_rule_name
-  resource_group_name = var.azurerm_eventhub_namespace_authorization_rule_resource_group_name
-  namespace_name      = var.namespace_name
-  #  provider            = azurerm.ditigerenciamento
-}
+# data "azurerm_eventhub_namespace_authorization_rule" "this" {
+#   name                = var.azurerm_eventhub_namespace_authorization_rule_name
+#   resource_group_name = var.azurerm_eventhub_namespace_authorization_rule_resource_group_name
+#   namespace_name      = var.namespace_name
+#   #  provider            = azurerm.ditigerenciamento
+# }
 
 # resource "azurerm_eventhub_consumer_group" "this" {
 #   name                = "this-consumer-group"
