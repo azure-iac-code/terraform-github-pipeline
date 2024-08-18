@@ -14,7 +14,7 @@ provider "azurerm" {
 }
 
 data "azurerm_resource_group" "this" {
-  name     = "rg-keyvault"
+  name     = azurerm_resource_group.this.name #"rg-keyvault"
 }
 
 data "azurerm_virtual_network" "this" {

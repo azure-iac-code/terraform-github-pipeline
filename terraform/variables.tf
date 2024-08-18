@@ -66,6 +66,13 @@
 #   default     = "privatelink.vaultcore.azure.net"
 # }
 
+# variable "public_network_access_enabled" {
+#   description = "Permitir ou não o acesso da rede pública a este componente"
+#   type        = bool
+#   default     = true
+# }
+
+
 # variable "ambiente" {
 #   description = "Usado para compor o nome do recurso."
 #   type        = string
@@ -153,12 +160,6 @@ variable "soft_delete_retention_days" {
 
 variable "purge_protection_enabled" {
   description = "Proteção contra exclusão deste componente"
-  type        = bool
-  default     = true
-}
-
-variable "public_network_access_enabled" {
-  description = "Permitir ou não o acesso da rede pública a este componente"
   type        = bool
   default     = true
 }
