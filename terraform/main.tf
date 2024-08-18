@@ -63,13 +63,13 @@ resource "azurerm_key_vault" "this" {
     ip_rules                   = var.network_acls_ip_rules
   }
 
-  access_policy {
-    tenant_id               = data.azurerm_client_config.current.tenant_id
-    object_id               = azurerm_key_vault_access_policy.this.object_id #azurerm_key_vault_access_policy.this.id
-    key_permissions         = ["Get", "List"]
-    secret_permissions      = ["Get", "List"]
-    certificate_permissions = ["Get", "List"]
-  }
+  # access_policy {
+  #   tenant_id               = data.azurerm_client_config.current.tenant_id
+  #   object_id               = azurerm_key_vault_access_policy.this.object_id #azurerm_key_vault_access_policy.this.id
+  #   key_permissions         = ["Get", "List"]
+  #   secret_permissions      = ["Get", "List"]
+  #   certificate_permissions = ["Get", "List"]
+  # }
 }
 
 #----------------------------------------
