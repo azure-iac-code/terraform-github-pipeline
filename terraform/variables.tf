@@ -185,7 +185,7 @@ variable "network_acls_ip_rules" {
 variable "azurerm_key_vault_resource_group_name" { #azurerm_key_vault_resource_group_name
   description = "Nome do grupo de recurso existente para o componente do Key Vault"
   type        = string
-  default     = "rgkvdevbradesco001"
+  default     = "rg-keyvault"
 }
 
 variable "private_service_connection_is_manual_connection" {

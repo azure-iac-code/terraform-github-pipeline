@@ -113,29 +113,29 @@ resource "azurerm_key_vault_access_policy" "this" {
   depends_on = [data.azurerm_client_config.current]
 }
 
-# resource "azurerm_role_assignment" "this" {
-#   scope                = azurerm_key_vault.this.id
-#   role_definition_name = "Key Vault Contributor"
-#   principal_id         = data.azurerm_client_config.current.object_id
-# }
+resource "azurerm_role_assignment" "this" {
+  scope                = azurerm_key_vault.this.id
+  role_definition_name = "Key Vault Contributor"
+  principal_id         = data.azurerm_client_config.current.object_id
+}
 
-# resource "azurerm_role_assignment" "this" {
-#   scope                = azurerm_key_vault.this.id
-#   role_definition_name = "Key Vault Reader"
-#   principal_id         = data.azurerm_client_config.current.object_id
-# }
+resource "azurerm_role_assignment" "this" {
+  scope                = azurerm_key_vault.this.id
+  role_definition_name = "Key Vault Reader"
+  principal_id         = data.azurerm_client_config.current.object_id
+}
 
-# resource "azurerm_role_assignment" "this" {
-#   scope                = azurerm_key_vault.this.id
-#   role_definition_name = "Security Admin"
-#   principal_id         = data.azurerm_client_config.current.object_id
-# }
+resource "azurerm_role_assignment" "this" {
+  scope                = azurerm_key_vault.this.id
+  role_definition_name = "Security Admin"
+  principal_id         = data.azurerm_client_config.current.object_id
+}
 
-# resource "azurerm_role_assignment" "this" {
-#   scope                = azurerm_key_vault.this.id
-#   role_definition_name = "Security Reader"
-#   principal_id         = data.azurerm_client_config.current.object_id
-# }
+resource "azurerm_role_assignment" "this" {
+  scope                = azurerm_key_vault.this.id
+  role_definition_name = "Security Reader"
+  principal_id         = data.azurerm_client_config.current.object_id
+}
 
 # resource "azurerm_key_vault_diagnostic_setting" "this" {
 #   name                            = "this-diagnostic-setting"
