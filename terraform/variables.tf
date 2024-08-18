@@ -1,82 +1,5 @@
 
 
-# variable "azurerm_virtual_network_name" {
-#   description = "Informar o nome da vnet para busca do ID da subnet"
-#   type        = string
-# }
-
-# variable "subnet_resource_group_name" {
-#   description = "Informar o nome do grupo de recursos para busca do ID da subnet"
-#   type        = string
-# }
-
-# variable "azurerm_private_dns_zone_resource_group_name" {
-#   description = "Nome do grupo de recurso existente da zona de DNS"
-#   type        = string
-#   default     = "pvtzones-rg"
-# }
-
-# variable "purge_protection_enabled" {
-#   description = "Proteção contra exclusão deste componente"
-#   type        = bool
-#   default     = true
-# }
-
-# variable "azurerm_subnet_keyvault_name" {
-#   description = "Informar o nome da subnet para busca do ID"
-#   type        = string
-#   default     = "snetdvditiautodvptendpoint001"
-# }
-
-# variable "azurerm_resource_group_location" {
-#   description = "Região do resource group"
-#   type        = string
-# }
-
-# variable "azurerm_virtual_network" {
-#   description = "Insira o nome da VNET de gerenciamento (onde se encontra o jump)"
-#   type        = string
-#   default     = "GERENCIAMENTO-VNET"
-# }
-
-# variable "azurerm_subnet_jump_name" {
-#   description = "Insira o nome da subnet de gerenciamento (onde se encontra o jump)"
-#   type        = string
-#   default     = "jump-subnet"
-# }
-
-# variable "azurerm_resource_group_name" {
-#   description = "Insira o nome do grupo de recurso da VNET de gerenciamento"
-#   type        = string
-#   default     = "GERENCIAMENTO-VNET-RG"
-# }
-
-# variable "azurerm_private_dns_zone_name" {
-#   description = "Insira o nome da zone DNS privada que o recurso irá utillizar"
-#   type        = string
-#   default     = "privatelink.vaultcore.azure.net"
-# }
-
-# variable "public_network_access_enabled" {
-#   description = "Permitir ou não o acesso da rede pública a este componente"
-#   type        = bool
-#   default     = true
-# }
-
-
-# variable "ambiente" {
-#   description = "Usado para compor o nome do recurso."
-#   type        = string
-#   default     = "dv"
-# }
-
-# #---------------------------------------------------------------
-# # Dados Log Analitics
-# #---------------------------------------------------------------
-
-#---------------------------------------------------------------
-#                            KEYVAULT
-#---------------------------------------------------------------
 variable "azurerm_key_vault_name" {
   description = "Nome que será usado para o Key Vault"
   type        = string
@@ -149,7 +72,7 @@ variable "network_acls_ip_rules" {
   default     = ["200.155.87.0/24"]
 }
 
-variable "azurerm_key_vault_resource_group_name" { #azurerm_key_vault_resource_group_name
+variable "azurerm_key_vault_resource_group_name" {
   description = "Nome do grupo de recurso existente para o componente do Key Vault"
   type        = string
   default     = "rg-keyvault"
@@ -191,19 +114,49 @@ variable "namespace_name" {
   default     = "eventhubmgmtsiemqradar"
 }
 
-variable "azurerm_eventhub_resource_group_name" {
-  description = "Nome do Resource Group do Event Hub"
-  type        = string
-  default     = "rgazdvauditieventhub"
-}
-
-
-
-
-
 
 variable "ambiente" {
   description = "Ambiente"
   type        = string
   default     = "dv"
+}
+
+variable "azurerm_key_vault_access_policy" {
+  type = map(object({
+    key_vault_id           = string
+    tenant_id              = string
+    object_id              = string
+    secret_permissions     = list(string)
+    certificate_permissions = list(string)
+  }))
+  default = {
+    "ami-certificados-monitoracao" = {
+      key_vault_id           = "kvazudvbraditiauto500"
+      tenant_id              = "cf36141c-ddd7-45a7-b073-111f66d0b30c"
+      object_id              = "ami-certificados-monitoracao"
+      secret_permissions     = ["get", "list"]
+      certificate_permissions = ["get", "list"]
+    }
+    "sp-servicenow-keyvault-4250-prd" = {
+      key_vault_id           = "kvazudvbraditiauto500"
+      tenant_id              = "cf36141c-ddd7-45a7-b073-111f66d0b30c"
+      object_id              = "sp-servicenow-keyvault-4250-prd"
+      secret_permissions     = ["get", "list"]
+      certificate_permissions = ["get", "list"]
+    }
+    "gd4250_seguranca_acessos_az" = {
+      key_vault_id           = "kvazudvbraditiauto500"
+      tenant_id              = "cf36141c-ddd7-45a7-b073-111f66d0b30c"
+      object_id              = "gd4250_seguranca_acessos_az"
+      secret_permissions     = ["all"]
+      certificate_permissions = ["all"]
+    }
+    "grp-azu-brad-diti-ipsu-imsa" = {
+      key_vault_id           = "kvazudvbraditiauto500"
+      tenant_id              = "cf36141c-ddd7-45a7-b073-111f66d0b30c"
+      object_id              = "grp-azu-brad-diti-ipsu-imsa"
+      secret_permissions     = ["all"]
+      certificate_permissions = ["all"]
+    }
+  }
 }

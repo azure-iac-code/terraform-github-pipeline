@@ -1,17 +1,3 @@
-# terraform {
-#   required_providers {
-#     azurerm = {
-#       source  = "hashicorp/azurerm"
-#       version = "~> 3.0.2"
-#     }
-#   }
-#   required_version = ">= 1.1.0"
-# }
-
-# provider "azurerm" {
-#   features {}
-# }
-
 terraform {
   required_providers {
     azurerm = {
@@ -64,11 +50,7 @@ resource "azurerm_key_vault" "this" {
   enable_rbac_authorization       = var.enable_rbac_authorization
   soft_delete_retention_days      = var.soft_delete_retention_days
   purge_protection_enabled        = var.purge_protection_enabled
-  #public_network_access_enabled   = var.public_network_access_enabled
-  # soft_delete_enabled      = true
-  # purge_protection_enabled = true
-  #private_endpoint_enabled = true
-
+ 
   network_acls {
     bypass                     = var.network_acls_bypass
     default_action             = var.network_acls_default_action
@@ -95,22 +77,33 @@ resource "azurerm_private_endpoint" "this" {
   }
 }
 
-resource "azurerm_key_vault_access_policy" "this" {
-  key_vault_id            = azurerm_key_vault.this.id
-  tenant_id               = data.azurerm_client_config.current.tenant_id
-  object_id               = data.azurerm_client_config.current.object_id
-  key_permissions         = ["Get", "List"]
-  secret_permissions      = ["Get", "List"]
-  certificate_permissions = ["Get", "List"]
-  depends_on              = [data.azurerm_client_config.current]
+resource "azurerm_key_vault_access_policy" "key_vault_access_policiy" {
+  for_each = var.azurerm_key_vault_access_policy
+
+  key_vault_id = each.value.key_vault_id
+  tenant_id    = each.value.tenant_id
+  object_id    = each.value.object_id
+
+  secret_permissions = each.value.secret_permissions
+  certificate_permissions = each.value.certificate_permissions
 }
 
+# resource "azurerm_key_vault_access_policy" "this" {
+#   key_vault_id            = azurerm_key_vault.this.id
+#   tenant_id               = data.azurerm_client_config.current.tenant_id
+#   object_id               = data.azurerm_client_config.current.object_id
+#   key_permissions         = ["Get", "List"]
+#   secret_permissions      = ["Get", "List"]
+#   certificate_permissions = ["Get", "List"]
+#   depends_on              = [data.azurerm_client_config.current]
+# }
 
-resource "azurerm_role_assignment" "this" {
-  scope                = azurerm_key_vault.this.id
-  role_definition_name = "Key Vault Contributor"
-  principal_id         = data.azurerm_client_config.current.object_id
-}
+
+# resource "azurerm_role_assignment" "this" {
+#   scope                = azurerm_key_vault.this.id
+#   role_definition_name = "Key Vault Contributor"
+#   principal_id         = data.azurerm_client_config.current.object_id
+# }
 
 # resource "azurerm_role_assignment" "this" {
 #   scope                = azurerm_key_vault.this.id
@@ -132,7 +125,7 @@ resource "azurerm_role_assignment" "this" {
 
 resource "azurerm_eventhub" "this" {
   name                = var.eventhub_name
-  namespace_name      = var.namespace_name #azurerm_eventhub_namespace.this.name
+  namespace_name      = var.namespace_name
   resource_group_name = var.azurerm_eventhub_namespace_authorization_rule_resource_group_name
   partition_count     = 2
   message_retention   = 1
