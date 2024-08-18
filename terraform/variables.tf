@@ -191,7 +191,11 @@ variable "namespace_name" {
   default     = "eventhubmgmtsiemqradar"
 }
 
-
+variable "azurerm_eventhub_resource_group_name" {
+  description = "Nome do Resource Group do Event Hub"
+  type        = string
+  default     = "rgazdvauditieventhub"
+}
 
 
 
