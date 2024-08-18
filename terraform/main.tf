@@ -18,10 +18,7 @@ provider "azurerm" {
 ##################################################################################
 
 data "azurerm_client_config" "current" {
-    subscription_id = "f0c1e47b-a8bc-4071-9771-e81efd9b2cf1"
-    client_id       = "4a5a4779-faf9-453c-a5be-0253a63db678"
-    #client_secret   = "<your_client_secret>"
-    tenant_id       = "cf36141c-ddd7-45a7-b073-111f66d0b30c"
+    tenant_id = "cf36141c-ddd7-45a7-b073-111f66d0b30c"
 }
 
 data "azurerm_resource_group" "this" {
