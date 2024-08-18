@@ -37,7 +37,7 @@ data "azurerm_subnet" "jump_subnet" {
   depends_on           = [data.azurerm_resource_group.this]
 }
 
-#data "azurerm_client_config" "current" {}
+data "azurerm_client_config" "current" {}
 
 resource "azurerm_key_vault" "this" {
   name                            = var.azurerm_key_vault_name
