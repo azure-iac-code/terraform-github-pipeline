@@ -40,8 +40,8 @@ jobs:
       - name: Save Terraform Plan
         run: echo ${{ steps.terraform.outputs.plan }} > tfplan
 
-      - name: Display Terraform Plan
-        run: cat tfplan
+      # - name: Display Terraform Plan
+      #   run: cat tfplan
 
       # - name: Terraform show #
       #   run: terraform show -json tf.plan | jq > tf.json 
