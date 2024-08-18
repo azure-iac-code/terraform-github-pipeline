@@ -13,8 +13,10 @@ provider "azurerm" {
   features {}
 }
 
+data "azurerm_client_config" "current" {}
+
 data "azurerm_resource_group" "this" {
-  name     = "rg-keyvault"
+  name = "rg-keyvault"
 }
 
 data "azurerm_virtual_network" "this" {
@@ -27,17 +29,15 @@ data "azurerm_subnet" "keyvault_subnet" {
   name                 = "keyvault_subnet"
   resource_group_name  = data.azurerm_resource_group.this.name
   virtual_network_name = data.azurerm_virtual_network.this.name
-  depends_on          = [data.azurerm_resource_group.this]
+  depends_on           = [data.azurerm_resource_group.this]
 }
 
 data "azurerm_subnet" "jump_subnet" {
   name                 = "jump_subnet"
   resource_group_name  = data.azurerm_resource_group.this.name
   virtual_network_name = data.azurerm_virtual_network.this.name
-  depends_on          = [data.azurerm_resource_group.this]
+  depends_on           = [data.azurerm_resource_group.this]
 }
-
-data "azurerm_client_config" "current" {}
 
 resource "azurerm_key_vault" "this" {
   name                            = var.azurerm_key_vault_name
@@ -91,9 +91,9 @@ resource "azurerm_private_endpoint" "this" {
 }
 
 resource "azurerm_key_vault_access_policy" "this" {
-  key_vault_id = azurerm_key_vault.this.id
-  tenant_id    = data.azurerm_client_config.current.tenant_id
-  object_id    = data.azurerm_client_config.current.object_id
+  key_vault_id            = azurerm_key_vault.this.id
+  tenant_id               = data.azurerm_client_config.current.tenant_id
+  object_id               = data.azurerm_client_config.current.object_id
   key_permissions         = ["Get", "List"]
   secret_permissions      = ["Get", "List"]
   certificate_permissions = ["Get", "List"]
