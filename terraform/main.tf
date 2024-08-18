@@ -87,6 +87,12 @@ resource "azurerm_key_vault_access_policy" "this" {
   depends_on              = [data.azurerm_client_config.current]
 }
 
+resource "azurerm_role_assignment" "key_vault" {
+    count                = 4
+    scope                = "/subscriptions/f0c1e47b-a8bc-4071-9771-e81efd9b2cf1/resourceGroups/rg-keyvault/providers/Microsoft.KeyVault/vaults/kvazudvbraditiauto500"
+    role_definition_name = element(["Key Vault Contributor", "Key Vault Reader", "Security Admin", "Security Reader"], count.index)
+    principal_id         = "TESTKEYVAULTGROUP"
+}
 
 # resource "azurerm_role_assignment" "this" {
 #   scope                = azurerm_key_vault.this.id
