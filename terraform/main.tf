@@ -13,8 +13,6 @@ provider "azurerm" {
   features {}
 }
 
-data "azurerm_client_config" "current" {}
-
 data "azurerm_resource_group" "this" {
   name = "rg-keyvault"
 }
@@ -38,6 +36,8 @@ data "azurerm_subnet" "jump_subnet" {
   virtual_network_name = data.azurerm_virtual_network.this.name
   depends_on           = [data.azurerm_resource_group.this]
 }
+
+data "azurerm_client_config" "current" {}
 
 resource "azurerm_key_vault" "this" {
   name                            = var.azurerm_key_vault_name
