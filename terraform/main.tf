@@ -60,7 +60,7 @@ resource "azurerm_key_vault" "this" {
 
   access_policy {
     tenant_id               = data.azurerm_client_config.current.tenant_id
-    object_id               = "ami-certificados-monitoracao"
+    object_id               = "44b115af-3a2b-4f70-8e0b-7334e0ddc677"
     key_permissions         = ["Get", "List"]
     secret_permissions      = ["Get", "List"]
     certificate_permissions = ["Get", "List"]
