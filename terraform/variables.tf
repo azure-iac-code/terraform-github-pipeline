@@ -164,7 +164,7 @@ variable "private_service_connection_is_manual_connection" {
 variable "azurerm_monitor_diagnostic_setting_name" {
   description = "Nome que será usado para o Key Vault"
   type        = string
-  default = "azmonitordvkv001"
+  default     = "azmonitordvkv001"
 }
 
 variable "eventhub_name" {

@@ -15,7 +15,7 @@
 terraform {
   required_providers {
     azurerm = {
-      source = "hashicorp/azurerm"
+      source  = "hashicorp/azurerm"
       version = "3.116.0"
     }
   }
@@ -99,33 +99,51 @@ resource "azurerm_key_vault_access_policy" "this" {
   key_vault_id            = azurerm_key_vault.this.id
   tenant_id               = data.azurerm_client_config.current.tenant_id
   object_id               = data.azurerm_client_config.current.object_id
-  # key_permissions         = ["Get", "List"]
-  # secret_permissions      = ["Get", "List"]
-  # certificate_permissions = ["Get", "List"]
-  
-        {
-            name: "ami-certificados-monitoracao",
-            key_permissions         = ["Get", "List"],
-            certificate_permissions = ["Get", "List"],
-            secret_permissions      = ["Get", "List"]
-        },
-        {
-            name: "sp-servicenow-keyvault-4250-prd",
-            key_permissions         = ["Get", "List"],
-            certificate_permissions = ["Get", "List"],
-            secret_permissions      = ["Get", "List"]
-        },
-        {
-            name: "gd4250_seguranca_acessos_az",
-            operations: ["All"]
-        },
-        {
-            name: "grp-azu-brad-diti-ipsu-imsa'",
-            operations: ["All"]
-        }
-
-  depends_on = [data.azurerm_client_config.current]
+  key_permissions         = ["Get", "List"]
+  secret_permissions      = ["Get", "List"]
+  certificate_permissions = ["Get", "List"]
+  depends_on              = [data.azurerm_client_config.current]
 }
+
+#resource "azurerm_key_vault_access_policy" "this" {
+#   key_vault_id            = azurerm_key_vault.this.id
+#   tenant_id               = data.azurerm_client_config.current.tenant_id
+#   object_id               = data.azurerm_client_config.current.object_id
+
+
+#       [       
+
+#        access_policy { 
+#         name                    = "ami-certificados-monitoracao"
+#         tenant_id               = data.azurerm_client_config.current.tenant_id
+#         object_id               = data.azurerm_client_config.current.object_id
+#         key_permissions         = ["Get", "List"]
+#         certificate_permissions = ["Get", "List"]
+#         secret_permissions      = ["Get", "List"]
+#        }
+
+#     access_policy {
+#         name                    = "sp-servicenow-keyvault-4250-prd"
+#         key_permissions         = ["Get", "List"]
+#         certificate_permissions = ["Get", "List"]
+#         secret_permissions      = ["Get", "List"]
+#     }
+
+#     access_policy {
+#         name                    = "gd4250_seguranca_acessos_az"
+#         operations              = ["All"]
+#     }
+
+#     access_policy {
+#         name                    = "grp-azu-brad-diti-ipsu-imsa"
+#         operations              = ["All"]
+#     }
+#       ]
+
+#     depends_on = [data.azurerm_client_config.current]
+# }
+
+
 
 resource "azurerm_role_assignment" "this" {
   scope                = azurerm_key_vault.this.id
@@ -157,7 +175,7 @@ resource "azurerm_eventhub_namespace_authorization_rule" "this" {
   namespace_name      = var.namespace_name
   send                = true
   manage              = true
-#  provider            = azurerm.ditigerenciamento
+  #  provider            = azurerm.ditigerenciamento
 }
 
 resource "azurerm_eventhub" "this" {
@@ -180,7 +198,7 @@ resource "azurerm_eventhub" "this" {
 #   target_resource_id             = azurerm_key_vault.this.id
 #   eventhub_name                  = var.eventhub_name
 #   eventhub_authorization_rule_id = data.azurerm_eventhub_namespace_authorization_rule.this.id
-  
+
 #   enabled_log {
 #     category_group = "audit"
 #   }
