@@ -2,15 +2,19 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "~> 3.0.0"
+      version = "~> 3.0.2"
     }
   }
-
   required_version = ">= 1.1.0"
 }
 
 provider "azurerm" {
   features {}
+}
+data "azurerm_client_config" "current" {
+  }
+output "object_id" {
+  value = data.azurerm_client_config.current.object_id
 }
 
 data "azurerm_resource_group" "this" {
@@ -36,8 +40,6 @@ data "azurerm_subnet" "jump_subnet" {
   virtual_network_name = data.azurerm_virtual_network.this.name
   depends_on           = [data.azurerm_resource_group.this]
 }
-
-data "azurerm_client_config" "current" {}
 
 resource "azurerm_key_vault" "this" {
   name                            = var.azurerm_key_vault_name
