@@ -12,9 +12,6 @@ provider "azurerm" {
   features {}
 }
 data "azurerm_client_config" "current" {
-  }
-output "object_id" {
-  value = data.azurerm_client_config.current.object_id
 }
 
 data "azurerm_resource_group" "this" {
