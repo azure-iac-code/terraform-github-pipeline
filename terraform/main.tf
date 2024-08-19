@@ -153,7 +153,7 @@ resource "azurerm_eventhub" "this" {
 #   namespace_name      = var.namespace_name
 #   resource_group_name = azurerm_resource_group.this.name
 # }
-
+#
 # resource "azurerm_monitor_diagnostic_setting" "this" {
 #   name                           = "${var.azurerm_key_vault_name}_diagnostic"
 #   target_resource_id             = azurerm_key_vault.this.id
