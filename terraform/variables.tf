@@ -3,7 +3,7 @@
 variable "azurerm_key_vault_name" {
   description = "Nome que será usado para o Key Vault"
   type        = string
-  default     = "kvazudvbraditiauto500"
+  default     = "kvazudvbraditiauto"
 }
 
 variable "azurerm_key_vault_location" {

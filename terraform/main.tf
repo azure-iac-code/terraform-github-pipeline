@@ -132,6 +132,13 @@ resource "azurerm_role_assignment" "this" {
 #   principal_id         = data.azurerm_client_config.current.object_id
 # }
 
+data "azurerm_eventhub_namespace_authorization_rule" "this" {
+  name                = var.azurerm_eventhub_namespace_authorization_rule_name
+  resource_group_name = var.azurerm_eventhub_namespace_authorization_rule_resource_group_name
+  namespace_name      = var.namespace_name
+  #  provider            = azurerm.ditigerenciamento
+}
+
 resource "azurerm_eventhub" "this" {
   name                = var.eventhub_name
   namespace_name      = var.namespace_name
@@ -139,13 +146,6 @@ resource "azurerm_eventhub" "this" {
   partition_count     = 2
   message_retention   = 1
 }
-
-# data "azurerm_eventhub_namespace_authorization_rule" "this" {
-#   name                = var.azurerm_eventhub_namespace_authorization_rule_name
-#   resource_group_name = var.azurerm_eventhub_namespace_authorization_rule_resource_group_name
-#   namespace_name      = var.namespace_name
-#   #  provider            = azurerm.ditigerenciamento
-# }
 
 # resource "azurerm_eventhub_consumer_group" "this" {
 #   name                = "this-consumer-group"
