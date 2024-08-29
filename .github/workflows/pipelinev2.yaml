@@ -116,9 +116,9 @@ jobs:
     - name: Terraform Apply
       run: terraform apply -auto-approve -var "resource_group_name=${{secrets.AZURE_RESOURCE_GROUP_NAME}}"
 
-  deploy-to-test:
+  deploy-to-hom:
     if: github.event_name != 'pull_request'
-    needs: Deploy -> Dev
+    needs: deploy-to-dev
     defaults:
       run:
         working-directory: terraform
@@ -151,7 +151,7 @@ jobs:
 
   deploy-to-prod:
     if: github.event_name != 'pull_request'
-    needs: Deploy -> Hom
+    needs: deploy-to-hom
     defaults:
       run:
         working-directory: terraform
