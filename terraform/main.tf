@@ -1,17 +1,17 @@
-data "azurerm_resource_group" "rg_terraform" {
-  name = "rg-terraform-modules"
-}
+# data "azurerm_resource_group" "rg_terraform" {
+#   name = "rg-terraform-modules"
+# }
 
-data "azurerm_virtual_network" "vnet_terraform" {
-  name                = var.azurerm_virtual_network_name
-  resource_group_name = data.azurerm_resource_group.rg_terraform.name
-}
+# data "azurerm_virtual_network" "vnet_terraform" {
+#   name                = var.azurerm_virtual_network_name
+#   resource_group_name = data.azurerm_resource_group.rg_terraform.name
+# }
 
-data "azurerm_subnet" "subnet_terraform" {
-  name                 = var.subnet-terraform-modules
-  resource_group_name  = data.azurerm_resource_group.rg_terraform.name
-  virtual_network_name = data.azurerm_virtual_network.vnet_terraform.name
-}
+# data "azurerm_subnet" "subnet_terraform" {
+#   name                 = var.subnet-terraform-modules
+#   resource_group_name  = data.azurerm_resource_group.rg_terraform.name
+#   virtual_network_name = data.azurerm_virtual_network.vnet_terraform.name
+# }
 
 # resource "azurerm_subnet" "subnet_terraform_2" {
 #   name                 = var.azurerm_subnet
