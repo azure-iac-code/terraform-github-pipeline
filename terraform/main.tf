@@ -9,7 +9,7 @@ data "azurerm_virtual_network" "vnet_terraform" {
 }
 
 data "azurerm_subnet" "subnet_terraform" {
-  name                 = "subnet-terraform-modules"
+  name                 = var.subnet-terraform-modules
   resource_group_name  = data.azurerm_resource_group.rg_terraform.name
   virtual_network_name = data.azurerm_virtual_network.vnet_terraform.name
   #depends_on           = [data.azurerm_resource_group.this]

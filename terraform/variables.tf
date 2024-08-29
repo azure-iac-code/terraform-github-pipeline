@@ -13,3 +13,8 @@ variable "azurerm_subnet_address_prefixes" {
   type        = list(string)
 }
 
+variable "subnet-terraform-modules" {
+  description = "Subnet name for Terraform modules"
+  type        = string
+}
+
