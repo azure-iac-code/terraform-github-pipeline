@@ -1,4 +1,4 @@
-name: Terraform Automation
+name: Terraform-Automation
 on:
   push:
     branches:
