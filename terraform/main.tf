@@ -11,25 +11,29 @@
 #   features {}
 # }
 
-# data "azurerm_client_config" "current" {
-# }
+data "azurerm_resource_group" "rg_terraform" {
+  name = "rg-terraform-modules"
+}
 
-# data "azurerm_resource_group" "this" {
-#   name = "rg-keyvault"
-# }
+data "azurerm_virtual_network" "vnet_terraform" {
+  name                = var.azurerm_virtual_network_name
+  resource_group_name = data.azurerm_resource_group.rg_terraform.name
+  #depends_on          = [data.azurerm_resource_group.this]
+}
 
-# data "azurerm_virtual_network" "this" {
-#   name                = "vnet-keyvault"
-#   resource_group_name = data.azurerm_resource_group.this.name
-#   depends_on          = [data.azurerm_resource_group.this]
-# }
+data "azurerm_subnet" "subnet_terraform" {
+  name                 = "subnet-terraform-modules"
+  resource_group_name  = data.azurerm_resource_group.rg_terraform.name
+  virtual_network_name = data.azurerm_virtual_network.vnet_terraform.name
+  #depends_on           = [data.azurerm_resource_group.this]
+}
 
-# data "azurerm_subnet" "keyvault_subnet" {
-#   name                 = "keyvault_subnet"
-#   resource_group_name  = data.azurerm_resource_group.this.name
-#   virtual_network_name = data.azurerm_virtual_network.this.name
-#   depends_on           = [data.azurerm_resource_group.this]
-# }
+resource "azurerm_subnet" "subnet_terraform_2" {
+  name                 = var.azurerm_subnet
+  address_prefixes     = ["172.30.21.0/24"]
+  resource_group_name  = data.azurerm_resource_group.rg_terraform.name
+  virtual_network_name = data.azurerm_virtual_network.vnet_terraform.name
+}
 
 # data "azurerm_subnet" "jump_subnet" {
 #   name                 = "jump_subnet"
