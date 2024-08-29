@@ -8,3 +8,8 @@ variable "azurerm_subnet" {
   type        = string
 }
 
+variable "azurerm_subnet_address_prefixes" {
+  description = "Address prefixes for subnet-terraform-modules-2"
+  type        = list(string)
+}
+
