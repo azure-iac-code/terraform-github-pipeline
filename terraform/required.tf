@@ -11,11 +11,6 @@ provider "azurerm" {
   features {}
 }
 
-# provider "azurerm" {
-#   features {}
-#   use_msi = true
-# }
-
 terraform {
   backend "azurerm" {
     resource_group_name  = "rg-runner"
