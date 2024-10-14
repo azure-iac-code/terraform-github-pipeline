@@ -7,6 +7,7 @@ on:
       - main
     paths:
       - terraform/**
+      - .github/workflows/
   
   pull_request: # [master, next]
     paths:
