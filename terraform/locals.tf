@@ -4,7 +4,7 @@ locals {
 
 
 locals {
-    location                  = "eastus"
-    account_tier              = var.ambiente == "dv" ? "Standard" : "Premium"
-    account_replication_type  = var.ambiente == "dv" ? "LRS" : "ZRS"
+  location                 = "East US"
+  account_tier             = var.ambiente == "dv" ? "Standard" : "Premium"
+  account_replication_type = var.ambiente == "dv" ? "LRS" : "ZRS"
 }

@@ -26,19 +26,19 @@ variable "azurerm_storage_account_type" {
 variable "azurerm_virtual_network_name" {
   type        = string
   description = "Digite o nome da vnet existente."
-  default = "vnetdvditiautoacoeeastus"
+  default     = "vnetdvditiautoacoeeastus"
 }
 
 variable "azurerm_subnet_name" {
   type        = string
   description = "Digite o nome da subnet existente."
-  default = "subkvdevbra001"
+  default     = "subkvdevbra001"
 }
 
 variable "azurerm_virtual_network_resource_group_name" {
   type        = string
   description = "Selecione o grupo de recurso existente."
-  default = "rgdvditiautovnetacoe"
+  default     = "rgdvditiautovnetacoe"
 }
 
 variable "azurerm_storage_account_allow_nested_items_to_be_public" {
