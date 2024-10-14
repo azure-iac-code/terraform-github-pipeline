@@ -10,7 +10,7 @@ on:
 
 jobs:
   Terraform:
-    runs-on: self-hosted
+    runs-on: ubuntu-lastest
     outputs:
       ANSIBLE_HOSTS: ${{ steps.tf.outputs.ANSIBLE_HOSTS }}
     env:
