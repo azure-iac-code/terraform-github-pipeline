@@ -18,50 +18,32 @@ jobs:
       ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }} 
       ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
     steps:
-      - uses: hashicorp/setup-terraform@v3
-        with:
-          terraform_wrapper: false
-          terraform_version: 1.9 #"v1.9.4"
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
-      - name: Checkout
-        uses: actions/checkout@v4 #v2
+    - name: Install unzip
+      run: sudo apt-get install -y unzip
 
-      - name: Terraform Init
-        run: terraform init #-var-file terraform.dev.tfvars
-        working-directory: terraform
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+        terraform_version: 1.0.0
 
-      - name: Terraform validate
-        run: terraform validate 
-        working-directory: terraform
-
-      - name: Terraform plan
-        run: terraform plan -out=tfplan #-var-file terraform.dev.tfvars
-        working-directory: terraform
-
-      - name: Save Terraform Plan
-        run: echo ${{ steps.terraform.outputs.plan }} > tfplan
-
-      # - name: Display Terraform Plan
-      #   run: cat tfplan
-
-      # - name: Terraform show #
-      #   run: terraform show -json tf.plan | jq > tf.json 
-      #   working-directory: terraform
-
-      # - name: Set up Python 3.8
-      #   uses: actions/setup-python@v4
-      #   with:
-      #     python-version: 3.8
-
-      # - name: Test with Checkov
-      #   id: checkov
-      #   uses: bridgecrewio/checkov-action@39af4356d060f18cc43712934dae91a79bb1590e
-      #   with:
-      #     file: tf.json
-
-      - name: Terraform Apply
-        run: terraform apply -auto-approve tfplan
-        working-directory: terraform
+    - name: Terraform Init
+      run: terraform init #-var-file terraform.dev.tfvars
+      working-directory: terraform
+    - name: Terraform validate
+      run: terraform validate 
+      working-directory: terraform
+    - name: Terraform plan
+      run: terraform plan -out=tfplan #-var-file terraform.dev.tfvars
+      working-directory: terraform
+    - name: Save Terraform Plan
+      run: echo ${{ steps.terraform.outputs.plan }} > tfplan
+    
+    - name: Terraform Apply
+      run: terraform apply -auto-approve tfplan
+      working-directory: terraform
 
       # - name: Terraform Destroy
       #   run: terraform destroy -var-file variables-dev.tfvars -auto-approve
