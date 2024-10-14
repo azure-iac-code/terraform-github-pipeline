@@ -8,7 +8,7 @@ env:
   version: 1.0.23
 
 jobs:
-  Deploy-Dev:
+  Terraform:
     runs-on: self-hosted
     # outputs:
     #   ANSIBLE_HOSTS: ${{ steps.tf.outputs.ANSIBLE_HOSTS }}
