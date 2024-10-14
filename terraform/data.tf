@@ -12,4 +12,3 @@ data "azurerm_subnet" "subnet" {
   resource_group_name  = var.azurerm_virtual_network_resource_group_name
   provider             = azurerm
 }
-#
