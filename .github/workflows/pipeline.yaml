@@ -3,9 +3,10 @@ on:
   push:
     branches:
       - main
-
-env:
-  version: 1.0.23
+    paths:
+      - terraform/**
+# env:
+#   version: 1.0.23
 
 jobs:
   Terraform:
