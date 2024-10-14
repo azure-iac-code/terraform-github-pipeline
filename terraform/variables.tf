@@ -46,3 +46,4 @@ variable "azurerm_storage_account_allow_nested_items_to_be_public" {
   description = "Permitir ou proibir que itens aninhados nesta conta se tornem públicos."
   default     = false
 }
+#
