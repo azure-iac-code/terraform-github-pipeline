@@ -10,9 +10,9 @@ on:
 
 jobs:
   Terraform:
-    runs-on: ubuntu-lastest
-    outputs:
-      ANSIBLE_HOSTS: ${{ steps.tf.outputs.ANSIBLE_HOSTS }}
+    runs-on: self-hosted
+    # outputs:
+    #   ANSIBLE_HOSTS: ${{ steps.tf.outputs.ANSIBLE_HOSTS }}
     env:
       ARM_USE_MSI: true
       ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
