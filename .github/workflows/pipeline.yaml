@@ -20,10 +20,11 @@ jobs:
     steps:
       - uses: hashicorp/setup-terraform@v3
         with:
-          terraform_version: "v1.9.4"
+          terraform_wrapper: false
+          terraform_version: 1.9 #"v1.9.4"
 
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4 #v2
 
       - name: Terraform Init
         run: terraform init #-var-file terraform.dev.tfvars
