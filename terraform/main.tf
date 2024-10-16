@@ -1,9 +1,9 @@
 data "azurerm_resource_group" "this" {
-  name = "rgdvtesteditiautoacoe"
+  name = "rgdvteste"
 }
 
 resource "azurerm_storage_account" "this" {
-  name                     = "stazudvbraautditi312"
+  name                     = "storageazu20"
   resource_group_name      = data.azurerm_resource_group.this.name
   location                 = "East US"
   account_tier             = "Standard"
