@@ -31,3 +31,4 @@ resource "azurerm_storage_queue" "this" {
   storage_account_name = azurerm_storage_account.this.name
   depends_on           = [azurerm_storage_account.this]
 }
+#
