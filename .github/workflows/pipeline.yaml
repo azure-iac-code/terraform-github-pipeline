@@ -5,6 +5,7 @@ on:
       - main
     paths:
       - terraform/**
+      - .github/workflows/**
 # env:
 #   version: 1.0.23
 
@@ -14,7 +15,7 @@ jobs:
     # outputs:
     #   ANSIBLE_HOSTS: ${{ steps.tf.outputs.ANSIBLE_HOSTS }}
     env:
-      ARM_USE_MSI: true
+      #ARM_USE_MSI: true
       ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }} 
       ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
